@@ -1,10 +1,10 @@
-import { Card, Avatar, Row, Col, Space } from 'antd';
+import { Card, Row, Col, Space } from 'antd';
 const { Meta } = Card;
 
 function BookGrid(props) {
   return (
     <>
-      <Space direction="vertical">
+      <Space direction="vertical" size="large">
         <Row type="flex" justify="space-around">
           <Col span={ 5 }>
             <Card 
