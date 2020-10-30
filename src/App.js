@@ -3,6 +3,7 @@ import './App.css';
 
 import Home from './components/home';
 import HeaderContent from './components/headercontent';
+import FooterContent from './components/footercontent';
 
 const { Header, Content, Footer } = Layout;
 
@@ -18,6 +19,7 @@ function App() {
       </Content>
 
       <Footer>
+        <FooterContent />
       </Footer>
     </Layout>
   );
