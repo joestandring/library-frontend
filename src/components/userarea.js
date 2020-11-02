@@ -1,8 +1,19 @@
+/**
+ * The user are in the header containing controls for the current user
+ * @module src/components/userarea
+ * @author Joe Standring
+ * @see src/components/headercontent.js for where this module is imported
+ */
+
 import { Row, Col, Typography, Avatar, Badge } from 'antd';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 
 const { Paragraph } = Typography;
 
+/**
+ * Display contents of the userarea component
+ * @returns {string} The HTML code to display elements
+ */
 function UserArea(props) {
   return (
     <>
@@ -24,4 +35,5 @@ function UserArea(props) {
   );
 }
 
+/** Export the component to be rendered in headercontent.js */
 export default UserArea;

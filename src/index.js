@@ -1,3 +1,10 @@
+/**
+ * Render the application
+ * @module src/index
+ * @author Joe Standring
+ * @see src/App.js for the main component to render
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

@@ -1,9 +1,21 @@
+/**
+ * The default "Home" page, used when going to the website's base url or selecting the "Home" button
+ * @module src/components/home
+ * @author Joe Standring
+ * @see src/App.js for where this module is imported
+ * @see src/components/bookgrid for the component to display book cards
+ */
+
 import { Typography, Input } from 'antd';
 import BookGrid from './bookgrid';
 
 const { Title, Paragraph } = Typography;
 const { Search } = Input;
 
+/**
+ * Display contents of the home page
+ * @returns {string} The HTML code to display elements
+ */
 function Home(props) {
   return (
     <>
@@ -31,4 +43,5 @@ function Home(props) {
   );
 }
 
+/** Export the component to be rendered in index.js */
 export default Home;

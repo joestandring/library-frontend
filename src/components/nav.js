@@ -1,5 +1,16 @@
+/**
+ * The navigation bar in the header containing links to different pages
+ * @module src/components/nav
+ * @author Joe Standring
+ * @see src/components/headercontent.js for where this module is imported
+ */
+
 import { Menu } from 'antd';
 
+/**
+ * Display contents of the nav component
+ * @returns {string} The HTML code to display elements
+ */
 function Nav(props) {
   return (
     <>
@@ -12,4 +23,5 @@ function Nav(props) {
   );
 }
 
+/** Export the component to be rendered in headercontent.js */
 export default Nav
