@@ -4,14 +4,14 @@
  * @author Joe Standring
  * @see components/ for components imported and used here
  * @see src/index.js for where the component is rendered
- * @see src/components/headercontent for the content displayed in the page header
- * @see src/components/footercontent for the content displayed in the page footer
  */
 
+import { React } from 'react';
 import { Layout } from 'antd';
 import './App.css';
 
 import Home from './components/home';
+// import Books from './components/books';
 import HeaderContent from './components/headercontent';
 import FooterContent from './components/footercontent';
 
