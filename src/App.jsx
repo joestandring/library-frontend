@@ -11,6 +11,7 @@ import './App.css';
 
 import Home from './components/home';
 import Books from './components/books';
+import BookView from './components/bookview';
 import HeaderContent from './components/headercontent';
 import FooterContent from './components/footercontent';
 
@@ -28,7 +29,7 @@ function App() {
       </Header>
 
       <Content>
-        <Books />
+        <BookView />
       </Content>
 
       <Footer>
