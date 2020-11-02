@@ -2,7 +2,7 @@
  * The user are in the header containing controls for the current user
  * @module src/components/userarea
  * @author Joe Standring
- * @see src/components/headercontent.js for where this module is imported
+ * @see src/components/headercontent.jsx for where this module is imported
  */
 
 import { Row, Col, Typography, Avatar, Badge } from 'antd';
@@ -35,5 +35,5 @@ function UserArea(props) {
   );
 }
 
-/** Export the component to be rendered in headercontent.js */
+/** Export the component to be rendered in headercontent.jsx */
 export default UserArea;

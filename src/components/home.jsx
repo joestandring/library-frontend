@@ -2,7 +2,7 @@
  * The default "Home" page, used when going to the website's base url or selecting the "Home" button
  * @module src/components/home
  * @author Joe Standring
- * @see src/App.js for where this module is imported
+ * @see src/App.jsx for where this module is imported
  * @see src/components/bookgrid for the component to display book cards
  */
 

@@ -2,7 +2,7 @@
  * The navigation bar in the header containing links to different pages
  * @module src/components/nav
  * @author Joe Standring
- * @see src/components/headercontent.js for where this module is imported
+ * @see src/components/headercontent.jsx for where this module is imported
  */
 
 import { Menu } from 'antd';
@@ -23,5 +23,5 @@ function Nav(props) {
   );
 }
 
-/** Export the component to be rendered in headercontent.js */
+/** Export the component to be rendered in headercontent.jsx */
 export default Nav

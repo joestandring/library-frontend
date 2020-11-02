@@ -2,7 +2,7 @@
  * The content of the footer displayed at the bottom of the app
  * @module src/components/footercontent
  * @author Joe Standring
- * @see src/home.js for where this module is used
+ * @see src/home.jsx for where this module is used
  */
 
 import { Typography } from 'antd';
@@ -21,5 +21,5 @@ function FooterContent(props) {
   );
 }
 
-/** Export the component to be rendered in home.js */
+/** Export the component to be rendered in home.jsx */
 export default FooterContent;

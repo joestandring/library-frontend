@@ -6,12 +6,11 @@
  * @see src/index.js for where the component is rendered
  */
 
-import { React } from 'react';
 import { Layout } from 'antd';
 import './App.css';
 
 import Home from './components/home';
-// import Books from './components/books';
+import Books from './components/books';
 import HeaderContent from './components/headercontent';
 import FooterContent from './components/footercontent';
 
@@ -29,7 +28,7 @@ function App() {
       </Header>
 
       <Content>
-        <Home />
+        <Books />
       </Content>
 
       <Footer>
