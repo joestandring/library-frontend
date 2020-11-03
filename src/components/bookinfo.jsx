@@ -66,14 +66,14 @@ function BookInfo(props) {
 
             <Row justify="center" gutter={ 16 }>
               <Col>
-                <Button disabled type="primary">
+                <Button type="primary">
                   Available
                 </Button>
               </Col>
 
               <Col>
                 <Button type="primary">
-                  Request
+                  Message
                 </Button>
               </Col>
             </Row>

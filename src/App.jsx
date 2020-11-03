@@ -14,6 +14,8 @@ import Books from './components/books';
 import BookView from './components/bookview';
 import HeaderContent from './components/headercontent';
 import FooterContent from './components/footercontent';
+import Login from './components/login';
+import User from './components/user';
 
 const { Header, Content, Footer } = Layout;
 
@@ -29,7 +31,7 @@ function App() {
       </Header>
 
       <Content>
-        <BookView />
+        <User />
       </Content>
 
       <Footer>

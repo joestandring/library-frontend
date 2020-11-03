@@ -3,10 +3,11 @@
  * @module src/components/login
  * @author Joe Standring
  * @see src/components/App.jsx for where this module is imported
+ * @see src/components/signunform.jsx for the sign up form
  */
 
 import { Typography, Radio, Space } from 'antd';
-import LoginForm from './loginform'
+import SignUpForm from './signupform'
 
 const { Title } = Typography;
 
@@ -32,7 +33,7 @@ function Login(props) {
             optionType="button"
           />
 
-          <LoginForm />
+          <SignUpForm />
         </Space>
       </div>
     </>

@@ -1,17 +1,17 @@
 /**
- * Displays a login form
- * @module src/components/login
+ * Displays a sign up form
+ * @module src/components/signupform
  * @author Joe Standring
- * @see src/components/App.jsx for where this module is imported
+ * @see src/components/login.jsx for where this module is imported
  */
 
 import { Form, Input, Row } from 'antd';
 
 /**
- * Display contents of the LoginForm component
+ * Display contents of the SignInForm component
  * @returns {string} The HTML code to display elements
  */
-function LoginForm(props) {
+function SignUpForm(props) {
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -106,4 +106,4 @@ function LoginForm(props) {
 }
 
 /** Export the component to be rendered in login.jsx */
-export default LoginForm;
+export default SignUpForm;
