@@ -19,7 +19,8 @@ function Books(props) {
   return(
     <>
       <div style={ { padding: '2% 10%', textAlign: 'center' } }>
-        <Title>Search all books</Title>
+        <Title>Find the perfect book</Title>
+        <Title level={ 2 }>Search all books</Title>
          
         <Search placeholder="Search books"
           allowClear

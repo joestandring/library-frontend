@@ -6,18 +6,19 @@
  */
 
 import { Menu } from 'antd';
+import { Link } from 'react-router-dom';
 
 /**
- * Display contents of the nav component
+ * Display contents of the Nav component
  * @returns {string} The HTML code to display elements
  */
 function Nav(props) {
   return (
     <>
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={ ['1'] }>
-        <Menu.Item key="1">Home</Menu.Item>
-        <Menu.Item key="2">Books</Menu.Item>
-        <Menu.Item key="3">Users</Menu.Item>
+        <Menu.Item key="1"><Link to="/">Home</Link></Menu.Item>
+        <Menu.Item key="2"><Link to="/books">Books</Link></Menu.Item>
+        <Menu.Item key="3"><Link to="/login">Sign Up</Link></Menu.Item>
       </Menu>
     </>
   );

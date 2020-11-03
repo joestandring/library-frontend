@@ -7,6 +7,7 @@
 
 import { Row, Col, Typography, Avatar, Badge } from 'antd';
 import UserOutlined from '@ant-design/icons/UserOutlined';
+import { Link } from 'react-router-dom';
 
 const { Paragraph } = Typography;
 
@@ -24,10 +25,12 @@ function UserArea(props) {
         
         <Col>
           <Badge count={ 1 }>
-            <Avatar 
-              size="large"
-              icon={ <UserOutlined /> }
-            />
+            <Link to="/account">
+              <Avatar 
+                size="large"
+                icon={ <UserOutlined /> }
+              />
+            </Link>
           </Badge>
         </Col>
       </Row>

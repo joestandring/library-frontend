@@ -8,6 +8,7 @@
 
 import { Layout } from 'antd';
 import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Home from './components/home';
 import Books from './components/books';
@@ -16,6 +17,7 @@ import HeaderContent from './components/headercontent';
 import FooterContent from './components/footercontent';
 import Login from './components/login';
 import User from './components/user';
+import Account from './components/account'
 
 const { Header, Content, Footer } = Layout;
 
@@ -25,19 +27,28 @@ const { Header, Content, Footer } = Layout;
  */
 function App() {
   return (
-    <Layout className="layout">
-      <Header>
-        <HeaderContent />
-      </Header>
+    <Router>
+      <Layout className="layout">
+        <Header>
+          <HeaderContent />
+        </Header>
 
-      <Content>
-        <User />
-      </Content>
+        <Content>
+          <Switch>
+            <Route path="/books/:id" children={ <BookView /> } />
+            <Route path="/books" children={ <Books /> } />
+            <Route path="/login" children={ <Login /> } />
+            <Route path="/user" children={ <User /> } />
+            <Route path="/account" children={ <Account /> } />
+            <Route path="/" children={ <Home /> } />
+          </Switch>
+        </Content>
 
-      <Footer>
-        <FooterContent />
-      </Footer>
-    </Layout>
+        <Footer>
+          <FooterContent />
+        </Footer>
+      </Layout>
+    </Router>
   );
 }
 

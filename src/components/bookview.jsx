@@ -8,6 +8,7 @@
 import { Image, Typography, Row, Col, Button } from 'antd';
 import ArrowLeftOutlined from '@ant-design/icons/ArrowLeftOutlined';
 import BookInfo from './bookinfo'
+import { Link } from 'react-router-dom';
 
 const { Title, Paragraph } = Typography;
 
@@ -34,9 +35,11 @@ function BookView(props) {
               </Col>
               
               <Col>
-                <Button type="primary" size="large">
-                  <ArrowLeftOutlined />Back
-                </Button>
+                <Link to="/books">
+                  <Button type="primary" size="large">
+                    <ArrowLeftOutlined />Back
+                  </Button>
+                </Link>
               </Col>
             </Row>
             

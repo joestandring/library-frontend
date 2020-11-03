@@ -7,12 +7,15 @@
 
 import { List, Row, Col, Button, Avatar, Space } from 'antd';
 import UserOutlined from '@ant-design/icons/UserOutlined';
+import { useParams, Link } from 'react-router-dom';
 
 /**
  * Display contents of the bookinfo component
  * @returns {string} The HTML code to display elements
  */
 function BookInfo(props) {
+  const { id } = useParams();
+  
   const listItems = [
     {
       title: 'ISBN',
@@ -57,12 +60,14 @@ function BookInfo(props) {
         
         <Col>
           <Space direction="vertical">
-            <Button size="large">
-              <Space>
-                <Avatar size="small" icon={ <UserOutlined /> } />
-                USERNAME_HERE
-              </Space>
-            </Button>
+            <Link to="/user">
+              <Button size="large">
+                <Space>
+                  <Avatar size="small" icon={ <UserOutlined /> } />
+                  USERNAME_HERE
+                </Space>
+              </Button>
+            </Link>
 
             <Row justify="center" gutter={ 16 }>
               <Col>
