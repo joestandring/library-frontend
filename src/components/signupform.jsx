@@ -5,23 +5,24 @@
  * @see src/components/login.jsx for where this module is imported
  */
 
-import { Form, Input, Row } from 'antd';
+import React from 'react'
+import { Form, Input, Button } from 'antd';
+
+const formItemLayout = {
+  labelCol: { xs: { span: 24 }, sm: { span: 6 } },
+  wrapperCol: { xs: { span: 24 }, sm: { span: 12 } },
+};
 
 /**
  * Display contents of the SignInForm component
  * @returns {string} The HTML code to display elements
  */
-function SignUpForm(props) {
-  const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-  };  
-
-  return(
-    <>
-      <Row type="flex" justify="center" align="middle">
+class SignUpForm extends React.Component {
+  render(){
+    return(
+      <>
         <Form
-          { ...layout }
+          { ...formItemLayout }
           name="signup"
         >
           <Form.Item
@@ -100,9 +101,13 @@ function SignUpForm(props) {
             <Input />
           </Form.Item>
         </Form>
-      </Row>
-    </>
-  );
+
+        <Button type="primary" htmlType="submit">
+          Create account
+        </Button>
+      </>
+    );
+  }
 }
 
 /** Export the component to be rendered in login.jsx */

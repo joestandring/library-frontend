@@ -6,7 +6,7 @@
  * @see src/components/signunform.jsx for the sign up form
  */
 
-import { Typography, Radio, Space } from 'antd';
+import { Typography, Radio } from 'antd';
 import SignUpForm from './signupform'
 
 const { Title } = Typography;
@@ -27,14 +27,13 @@ function Login(props) {
       <div style={ { padding: '2% 20%', textAlign: 'center' } }>
         <Title>Borrow one of thousands of free books on Public Library</Title>
         
-        <Space direction="vertical">
-          <Radio.Group
-            options={ options }
-            optionType="button"
-          />
-
+        <Radio.Group
+          options={ options }
+          optionType="button"
+        />
+        <div style={ { padding: "16px" } }>
           <SignUpForm />
-        </Space>
+        </div>
       </div>
     </>
   );
