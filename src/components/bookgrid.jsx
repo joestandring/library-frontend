@@ -5,186 +5,61 @@
  * @see src/components/books for where this module is imported
  */
 
-import { Card, Row, Col, Space } from 'antd';
+import React from 'react';
+import { Row, Col, Spin } from 'antd';
 import { Link } from 'react-router-dom';
-
-const { Meta } = Card;
+import BookCard from './bookcard';
 
 /**
  * Display contents of the BookGrid component
  * @returns {string} The HTML code to display elements
  */
-function BookGrid(props) {
-  return (
-    <>
-      <Space direction="vertical" size="large">
-        <Row type="flex" justify="space-around">
-          <Col span={ 5 }>
-            <Link to="/books/1">
-              <Card 
-                hoverable
-                cover={ <img alt="Seconds" src="https://pictures.abebooks.com/isbn/9781906838881-uk.jpg" /> }
-              >
-                <Meta
-                  title="Seconds"
-                  description="Bryan Lee O'Malley"
-                />
-              </Card>
+class BookGrid extends React.Component {
+  // Initialize the state that books will be stored in
+  constructor(props) {
+    super(props);
+    this.state = {
+      books: []
+    }
+  }
+  
+  // Triggered when React loads virtual DOM.
+  componentDidMount() {
+    // State updated
+    this.setState(
+      {
+        books: require('../data/books.json')
+      }
+    );
+  }
+  
+  render() {
+    // If posts havent loaded, display a loading message
+    if (!this.state.books.length) {
+      return(
+        <Spin />
+      );
+    }
+    
+    const cardList = this.state.books.map(book => {
+      return(
+        // Assign key to each item and pass values to bookcard component
+        <div key={book.id} style={ { padding: "10px" } }>
+          <Col flex="auto">
+            <Link to={ "/books/" + book.id }>
+              <BookCard { ...book } />
             </Link>
           </Col>
-          <Col span={ 5 }>
-            <Link to="/books/2">
-              <Card 
-                hoverable
-                cover={ <img alt="Seconds" src="https://pictures.abebooks.com/isbn/9781906838881-uk.jpg" /> }
-              >
-                <Meta
-                  title="Seconds"
-                  description="Bryan Lee O'Malley"
-                />
-              </Card>
-            </Link>
-          </Col>
-          <Col span={ 5 }>
-            <Link to="/books/3">
-              <Card 
-                hoverable
-                cover={ <img alt="Seconds" src="https://pictures.abebooks.com/isbn/9781906838881-uk.jpg" /> }
-              >
-                <Meta
-                  title="Seconds"
-                  description="Bryan Lee O'Malley"
-                />
-              </Card>
-            </Link>
-          </Col>
-          <Col span={ 5 }>
-            <Link to="/books/4">
-              <Card 
-                hoverable
-                cover={ <img alt="Seconds" src="https://pictures.abebooks.com/isbn/9781906838881-uk.jpg" /> }
-              >
-                <Meta
-                  title="Seconds"
-                  description="Bryan Lee O'Malley"
-                />
-              </Card>
-            </Link>
-          </Col>
-        </Row>
-
-        <Row type="flex" justify="space-around">
-          <Col span={ 5 }>
-            <Link to="/books/5">
-              <Card 
-                hoverable
-                cover={ <img alt="Seconds" src="https://pictures.abebooks.com/isbn/9781906838881-uk.jpg" /> }
-              >
-                <Meta
-                  title="Seconds"
-                  description="Bryan Lee O'Malley"
-                />
-              </Card>
-            </Link>
-          </Col>
-          <Col span={ 5 }>
-            <Link to="/books/6">
-              <Card 
-                hoverable
-                cover={ <img alt="Seconds" src="https://pictures.abebooks.com/isbn/9781906838881-uk.jpg" /> }
-              >
-                <Meta
-                  title="Seconds"
-                  description="Bryan Lee O'Malley"
-                />
-              </Card>
-            </Link>
-          </Col>
-          <Col span={ 5 }>
-            <Link to="/books/7">
-              <Card 
-                hoverable
-                cover={ <img alt="Seconds" src="https://pictures.abebooks.com/isbn/9781906838881-uk.jpg" /> }
-              >
-                <Meta
-                  title="Seconds"
-                  description="Bryan Lee O'Malley"
-                />
-              </Card>
-            </Link>
-          </Col>
-          <Col span={ 5 }>
-            <Link to="/books/8">
-              <Card 
-                hoverable
-                cover={ <img alt="Seconds" src="https://pictures.abebooks.com/isbn/9781906838881-uk.jpg" /> }
-              >
-                <Meta
-                  title="Seconds"
-                  description="Bryan Lee O'Malley"
-                />
-              </Card>
-            </Link>
-          </Col>
-        </Row>
-        
-        <Row type="flex" justify="space-around">
-          <Col span={ 5 }>
-            <Link to="/books/9">
-              <Card 
-                hoverable
-                cover={ <img alt="Seconds" src="https://pictures.abebooks.com/isbn/9781906838881-uk.jpg" /> }
-              >
-                <Meta
-                  title="Seconds"
-                  description="Bryan Lee O'Malley"
-                />
-              </Card>
-            </Link>
-          </Col>
-          <Col span={ 5 }>
-            <Link to="/books/10">
-              <Card 
-                hoverable
-                cover={ <img alt="Seconds" src="https://pictures.abebooks.com/isbn/9781906838881-uk.jpg" /> }
-              >
-                <Meta
-                  title="Seconds"
-                  description="Bryan Lee O'Malley"
-                />
-              </Card>
-            </Link>
-          </Col>
-          <Col span={ 5 }>
-            <Link to="/books/11">
-              <Card 
-                hoverable
-                cover={ <img alt="Seconds" src="https://pictures.abebooks.com/isbn/9781906838881-uk.jpg" /> }
-              >
-                <Meta
-                  title="Seconds"
-                  description="Bryan Lee O'Malley"
-                />
-              </Card>
-            </Link>
-          </Col>
-          <Col span={ 5 }>
-            <Link to="/books/12">
-              <Card 
-                hoverable
-                cover={ <img alt="Seconds" src="https://pictures.abebooks.com/isbn/9781906838881-uk.jpg" /> }
-              >
-                <Meta
-                  title="Seconds"
-                  description="Bryan Lee O'Malley"
-                />
-              </Card>
-            </Link>
-          </Col>
-        </Row>
-      </Space>
-    </>
-  );
+        </div>
+      );
+    });
+    
+    return (
+      <Row type="flex" justify="space-around">
+        {cardList}
+      </Row>
+    )
+  }
 }
 
 /** Export the component to be rendered */
