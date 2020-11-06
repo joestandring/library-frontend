@@ -5,10 +5,12 @@
  * @see src/App.jsx for where this module is imported
  */
 
-import { Image, Typography, Row, Col, Button } from 'antd';
+import { Image, Typography, Row, Col, Button, List, Space, Avatar } from 'antd';
+import { useParams, Link } from 'react-router-dom';
+import UserOutlined from '@ant-design/icons/UserOutlined';
 import ArrowLeftOutlined from '@ant-design/icons/ArrowLeftOutlined';
-import BookInfo from './bookinfo'
-import { Link } from 'react-router-dom';
+import ApiConf from '../apiconf';
+import { status, json } from '../utilities/requestHandlers'
 
 const { Title, Paragraph } = Typography;
 
@@ -17,6 +19,31 @@ const { Title, Paragraph } = Typography;
  * @returns {string} The HTML code to display elements
  */
 function BookView(props) {
+  const { id } = useParams();
+  
+  const listItems = [
+    {
+      title: 'ISBN',
+      description: '1234567890123',
+    },
+    {
+      title: 'Author',
+      description: "Bryan Lee O'Malley",
+    },
+    {
+      title: 'Genre',
+      description: 'Graphic Novel',
+    },
+    {
+      title: 'Publisher',
+      description: 'Ballantine Books',
+    },
+    {
+      title: 'Year',
+      description: '2014',
+    },
+  ]
+  
   return(
     <>
       <div style={ { padding: '2% 5%' } }>
@@ -48,8 +75,51 @@ function BookView(props) {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </Paragraph>
             </Row>
-            
-            <BookInfo />
+
+            <Row gutter={ 16 }>
+              <Col flex="auto">
+                <List
+                  bordered
+                  size="small"
+                  dataSource={ listItems }
+                  renderItem={ item => (
+                    <List.Item>
+                      <List.Item.Meta
+                        title={ item.title }
+                        description={ item.description }
+                      />
+                    </List.Item>
+                  )}
+                />
+              </Col>
+
+              <Col>
+                <Space direction="vertical">
+                  <Link to="/user">
+                    <Button size="large">
+                      <Space>
+                        <Avatar size="small" icon={ <UserOutlined /> } />
+                        USERNAME_HERE
+                      </Space>
+                    </Button>
+                  </Link>
+
+                  <Row justify="center" gutter={ 16 }>
+                    <Col>
+                      <Button type="primary">
+                        Available
+                      </Button>
+                    </Col>
+
+                    <Col>
+                      <Button type="primary">
+                        Message
+                      </Button>
+                    </Col>
+                  </Row>
+                </Space>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </div>
