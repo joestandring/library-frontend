@@ -7,6 +7,8 @@
 
 import React from 'react'
 import { Form, Input, Button } from 'antd';
+// Used to create input masks for values (postcode)
+import MaskedInput from 'antd-mask-input';
 
 const formItemLayout = {
   labelCol: { xs: { span: 24 }, sm: { span: 6 } },
@@ -14,8 +16,65 @@ const formItemLayout = {
 };
 
 const tailFormItemLayout = {
-  wrapperCol: { xs: { span: 24, offset: 0 }, sm: { span: 16, offset: 6 } },
+  wrapperCol: { xs: { span: 24, offset: 0 }, sm: { span: 12, offset: 6 } },
 };
+
+// Form validation rules
+const usernameRules = [
+  { required: true, message: 'Please input a username' },
+  { whitespace: true },
+];
+
+const emailRules = [
+  { required: true, message: 'Please input an email address' },
+  { type: 'email', message: 'Please input a valid email address' },
+  { whitespace: true },
+];
+
+const passwordRules = [
+  { required: true, message: 'Please input a password' },
+  { whitespace: true },
+];
+
+// Check password and confirm match
+const confirmRules = [
+  { required: true, message: 'Please confirm your password' },
+  { whitespace: true },
+  /**
+   * Check the password and confirm fields match
+   * @param {object} rule The rule this function is a part offset
+   * @param {string} value The current value of the components
+   * @return {Promise} Resolves or rejects the input with a message
+   */
+  ({ getFieldValue }) => ({
+    validator(rule, value) {
+      if (!value || getFieldValue('password') === value) {
+        return Promise.resolve();
+      }
+      return Promise.reject('Please ensure your passwords match');
+    }
+  }),
+];
+
+const noWhitespace = [
+  { whitespace: true },
+];
+
+const addressRules = [
+  { required: true, message: 'Please input an address' },
+  { whitespace: true },
+];
+
+const cityRules = [
+  { required: true, message: 'Please input a city' },
+  { whitespace: true },
+];
+
+const postcodeRules = [
+  { required: true, message: 'Please input a postcode' },
+  { pattern: /[A-Z][A-Z][0-9] [0-9][A-Z][A-Z]/, message: 'Please input a valid postcode (e.g. LO1 1AA)' },
+  { whitespace: true },
+];
 
 /**
  * Display contents of the SignInForm component
@@ -28,21 +87,34 @@ class SignUpForm extends React.Component {
     this.onFinish = this.onFinish.bind(this);
   }
   
+  /**
+   * Sends data in the form component to the API
+   * @param {object} values The data to be sent
+   */
   onFinish = (values) => {
     console.log(values);
   }
   
-  render(){
+  /**
+   * Changes the state of the components value to the new value
+   * @param e The component whos value will be changed
+   */
+  _onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+  
+  render() {
     return(
       <Form
         { ...formItemLayout }
         name="signup"
         onFinish={ this.onFinish }
+        scrollToFirstError
       >
         <Form.Item
           label="Username"
           name="username"
-          rules={ [ { required: true, message: 'Cannot leave username empty' } ] }
+          rules={ usernameRules }
         >
           <Input />
         </Form.Item>
@@ -50,7 +122,7 @@ class SignUpForm extends React.Component {
         <Form.Item
           label="Email"
           name="email"
-          rules={ [ { required: true, message: 'Cannot leave email empty' } ] }
+          rules={ emailRules }
         >
           <Input />
         </Form.Item>
@@ -58,7 +130,18 @@ class SignUpForm extends React.Component {
         <Form.Item
           label="Password"
           name="password"
-          rules={ [ { required: true, message: 'Cannot leave password empty' } ] }
+          rules={ passwordRules }
+          hasFeedback
+        >
+          <Input.Password />
+        </Form.Item>
+        
+        <Form.Item
+          label="Confirm password"
+          dependencies={ ['password'] }
+          name="confirm"
+          rules={ confirmRules }
+          hasFeedback
         >
           <Input.Password />
         </Form.Item>
@@ -66,6 +149,7 @@ class SignUpForm extends React.Component {
         <Form.Item
           label="First Name"
           name="firstName"
+          rules={ noWhitespace }
         >
           <Input />
         </Form.Item>
@@ -73,6 +157,7 @@ class SignUpForm extends React.Component {
         <Form.Item
           label="Last Name"
           name="lastName"
+          rules={ noWhitespace }
         >
           <Input />
         </Form.Item>
@@ -80,7 +165,7 @@ class SignUpForm extends React.Component {
         <Form.Item
           label="Address Line 1"
           name="address1"
-          rules={ [ { required: true, message: 'Cannot leave last name empty' } ] }
+          rules={ addressRules }
         >
           <Input />
         </Form.Item>
@@ -88,6 +173,7 @@ class SignUpForm extends React.Component {
         <Form.Item
           label="Address Line 2"
           name="address2"
+          rules={ noWhitespace }
         >
           <Input />
         </Form.Item>
@@ -95,6 +181,7 @@ class SignUpForm extends React.Component {
         <Form.Item
           label="Address Line 3"
           name="address3"
+          rules={ noWhitespace }
         >
           <Input />
         </Form.Item>
@@ -102,7 +189,7 @@ class SignUpForm extends React.Component {
         <Form.Item
           label="City"
           name="city"
-          rules={ [ { required: true, message: 'Cannot leave city empty' } ] }
+          rules={ cityRules }
         >
           <Input />
         </Form.Item>
@@ -110,12 +197,12 @@ class SignUpForm extends React.Component {
         <Form.Item
           label="Postcode"
           name="postcode"
-          rules={ [ { required: true, message: 'Cannot leave postcode empty' } ] }
+          rules={ postcodeRules }
         >
-          <Input />
+          <MaskedInput mask="AA1 1AA" name="postcode" onChange={ this._onChange } />
         </Form.Item>
 
-        <Form.Item {...tailFormItemLayout}>
+        <Form.Item { ...tailFormItemLayout }>
           <Button type="primary" htmlType="submit">
             Create account
           </Button>
