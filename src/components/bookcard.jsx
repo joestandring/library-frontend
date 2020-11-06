@@ -22,7 +22,7 @@ class BookCard extends React.Component {
         cover={<img alt="test" src={ this.props.imgLink } style={ { height: "450px", "object-fit": "cover" } } /> }
         style={ { width: 300 } }
       >
-        <Meta title={ this.props.title } description={ this.props.authorFirst + this.props.authorLast } />
+        <Meta title={ this.props.title } description={ this.props.authorFirst + " " + this.props.authorLast } />
       </Card>
     );
   }

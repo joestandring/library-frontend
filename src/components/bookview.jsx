@@ -5,8 +5,10 @@
  * @see src/App.jsx for where this module is imported
  */
 
-import { Image, Typography, Row, Col, Button, List, Space, Avatar } from 'antd';
+import React from 'react';
+import { Image, Typography, Row, Col, Button, List, Space, Avatar, Spin } from 'antd';
 import { useParams, Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import ArrowLeftOutlined from '@ant-design/icons/ArrowLeftOutlined';
 import ApiConf from '../apiconf';
@@ -18,114 +20,139 @@ const { Title, Paragraph } = Typography;
  * Display contents of the bookview page
  * @returns {string} The HTML code to display elements
  */
-function BookView(props) {
-  const { id } = useParams();
+class BookView extends React.Component {  
+  // Initialize the state book information will be stored in
+  constructor(props) {
+    super(props);
+    this.state = {
+      bookInfo: []
+    }
+  }
   
-  const listItems = [
-    {
-      title: 'ISBN',
-      description: '1234567890123',
-    },
-    {
-      title: 'Author',
-      description: "Bryan Lee O'Malley",
-    },
-    {
-      title: 'Genre',
-      description: 'Graphic Novel',
-    },
-    {
-      title: 'Publisher',
-      description: 'Ballantine Books',
-    },
-    {
-      title: 'Year',
-      description: '2014',
-    },
-  ]
+  // Triggered when React loads virtual DOM.
+  componentDidMount() {
+    const id = this.props.match.params.id;
+    
+    fetch(ApiConf.host + `/books/${id}`)
+    .then(status)
+    .then(json)
+    .then(data => {
+      this.setState({ bookInfo: data })
+    })
+    .catch(err => console.error(`Error fetching for book ${id}`, err));
+  }
   
-  return(
-    <>
-      <div style={ { padding: '2% 5%' } }>
-        <Row gutter={ 32 }>
-          <Col>
-            <Image
-              src="https://pictures.abebooks.com/isbn/9781906838881-uk.jpg"
-            />
-          </Col>
-          
-          <Col flex="auto">
-            <Row>
-              <Col flex="auto">
-                <Title>Seconds</Title>
-                <Title level={ 5 } type="secondary">Bryan Lee O'Malley</Title>
-              </Col>
-              
-              <Col>
-                <Link to="/books">
-                  <Button type="primary" size="large">
-                    <ArrowLeftOutlined />Back
-                  </Button>
-                </Link>
-              </Col>
-            </Row>
-            
-            <Row>
-              <Paragraph>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </Paragraph>
-            </Row>
+  render() {
+    if (!this.state.bookInfo) {
+      return <Spin />
+    }
+    
+    const bookInfo = this.state.bookInfo;
+    
+    const listItems = [
+      {
+        title: 'Description',
+        description: bookInfo.summary,
+      },
+      {
+        title: 'ISBN',
+        description: bookInfo.isbn,
+      },
+      {
+        title: 'Author',
+        description: bookInfo.authorFirst + " " + bookInfo.authorLast,
+      },
+      {
+        title: 'Genre',
+        description: bookInfo.genre,
+      },
+      {
+        title: 'Publisher',
+        description: bookInfo.publisher,
+      },
+      {
+        title: 'Year',
+        description: bookInfo.publishYear,
+      },
+    ];
+    
+    return(
+      <>
+        <div style={ { padding: '2% 5%' } }>
+          <Row gutter={ 32 }>
+            <Col>
+              <Image
+                src={ bookInfo.imgLink }
+              />
+            </Col>
 
-            <Row gutter={ 16 }>
-              <Col flex="auto">
-                <List
-                  bordered
-                  size="small"
-                  dataSource={ listItems }
-                  renderItem={ item => (
-                    <List.Item>
-                      <List.Item.Meta
-                        title={ item.title }
-                        description={ item.description }
-                      />
-                    </List.Item>
-                  )}
-                />
-              </Col>
+            <Col flex="auto">
+              <Row>
+                <Col flex="auto">
+                  <Title>{ bookInfo.title }</Title>
+                  <Title level={ 5 } type="secondary">{ bookInfo.authorFirst + " " + bookInfo.authorLast }</Title>
+                </Col>
 
-              <Col>
-                <Space direction="vertical">
-                  <Link to="/user">
-                    <Button size="large">
-                      <Space>
-                        <Avatar size="small" icon={ <UserOutlined /> } />
-                        USERNAME_HERE
-                      </Space>
+                <Col>
+                  <Link to="/books">
+                    <Button type="primary" size="large">
+                      <ArrowLeftOutlined />Back
                     </Button>
                   </Link>
+                </Col>
+              </Row>
 
-                  <Row justify="center" gutter={ 16 }>
-                    <Col>
-                      <Button type="primary">
-                        Available
-                      </Button>
-                    </Col>
+              <Row gutter={ 16 }>
+                <Col flex="auto">
+                  <List
+                    bordered
+                    size="small"
+                    dataSource={ listItems }
+                    renderItem={ item => (
+                      <List.Item>
+                        <List.Item.Meta
+                          title={ item.title }
+                          description={ item.description }
+                        />
+                      </List.Item>
+                    )}
+                  />
+                </Col>
 
-                    <Col>
-                      <Button type="primary">
-                        Message
+                <Col>
+                  <Space direction="vertical">
+                    <Link to="/user">
+                      <Button size="large" style={ { width: "100%" } }>
+                        <Space>
+                          <Avatar size="small" icon={ <UserOutlined /> } />
+                          { bookInfo.ownerID }
+                        </Space>
                       </Button>
-                    </Col>
-                  </Row>
-                </Space>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </div>
-    </>
-  );
+                    </Link>
+
+                    <Row justify="center" gutter={ 16 }>
+                      <Col>
+                        <Button type="primary">
+                          Available
+                        </Button>
+                      </Col>
+
+                      <Col>
+                        <Button type="primary">
+                          Message
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Space>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </div>
+      </>
+    );
+  }
 }
 
 /** Export the component to be rendered in App.jsx */
-export default BookView;
+export default withRouter(BookView);
