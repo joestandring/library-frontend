@@ -9,6 +9,8 @@ import React from 'react';
 import { Row, Col, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import BookCard from './bookcard';
+import ApiConf from '../apiconf';
+import { status, json } from '../utilities/requestHandlers'
 
 /**
  * Display contents of the BookGrid component
@@ -25,12 +27,13 @@ class BookGrid extends React.Component {
   
   // Triggered when React loads virtual DOM.
   componentDidMount() {
-    // State updated
-    this.setState(
-      {
-        books: require('../data/books.json')
-      }
-    );
+    fetch(ApiConf.host + '/books')
+    .then(status)
+    .then(json)
+    .then(data => {
+      this.setState({ books: data })
+    })
+    .catch(err => console.error("Error fetching articles", err));
   }
   
   render() {
@@ -46,7 +49,7 @@ class BookGrid extends React.Component {
         // Assign key to each item and pass values to bookcard component
         <div key={book.id} style={ { padding: "10px" } }>
           <Col flex="auto">
-            <Link to={ "/books/" + book.id }>
+            <Link to={ "/books/" + book.ID }>
               <BookCard { ...book } />
             </Link>
           </Col>

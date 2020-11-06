@@ -10,6 +10,7 @@ import { Form, Input, Button } from 'antd';
 // Used to create input masks for values (postcode)
 import MaskedInput from 'antd-mask-input';
 import ApiConf from '../apiconf';
+import { status, json } from '../utilities/requestHandlers'
 
 const formItemLayout = {
   labelCol: { xs: { span: 24 }, sm: { span: 6 } },
@@ -110,7 +111,8 @@ class SignUpForm extends React.Component {
     // POST the data
     .then(data => {
       console.log(data);
-      alert('User added');
+      alert('User added, please sign in');
+      // Return to home page
     })
     // Return an error in JSON if failed
     .catch(error => {
@@ -233,27 +235,6 @@ class SignUpForm extends React.Component {
       </Form>
     );
   }
-}
-
-/*
- * Return the API response if the response code is successful
- * @param {object} response The response received by the API
- * @return The response received by the API if successful
- */
-function status(response) {
-  // If the reponse message is a success
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    return new Promise((resolve, reject) => {
-      return response.json().then(reject);
-    });
-  }
-}
-
-function json(response) {
-  // Return promise
-  return response.json();
 }
 
 /** Export the component to be rendered in login.jsx */

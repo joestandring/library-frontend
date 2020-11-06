@@ -1,6 +1,7 @@
 /**
  * Configuration for API
  * @module src/apiconf
+ * @author Joe Standring
  * @see src/components/ for where this config is used
  */
 

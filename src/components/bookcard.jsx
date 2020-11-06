@@ -19,10 +19,10 @@ class BookCard extends React.Component {
     return(
       <Card
         hoverable
-        cover={<img alt="test" src={this.props.imgURL} />}
+        cover={<img alt="test" src={ this.props.imgLink } />}
         style={ { width: 240 } }
       >
-        <Meta title={this.props.title} description={this.props.author} />
+        <Meta title={ this.props.title } description={ this.props.authorFirst + this.props.authorLast } />
       </Card>
     );
   }
