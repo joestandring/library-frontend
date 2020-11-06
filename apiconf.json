@@ -1,6 +1,0 @@
-// Configuration for API
-
-{
-  // Hostname + port(optional)
-  "host": "https://mixer-fiona-3000.codio-box.uk/",
-}
