@@ -124,7 +124,7 @@ class SignUpForm extends React.Component {
    * Changes the state of the components value to the new value
    * @param e The component whos value will be changed
    */
-  _onChange = (e) => {
+  onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
   
@@ -224,7 +224,7 @@ class SignUpForm extends React.Component {
           name="postcode"
           rules={ postcodeRules }
         >
-          <MaskedInput mask="AA1 1AA" name="postcode" onChange={ this._onChange } />
+          <MaskedInput mask="AA1 1AA" name="postcode" onChange={ this.onChange } />
         </Form.Item>
 
         <Form.Item { ...tailFormItemLayout }>

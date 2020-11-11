@@ -7,14 +7,14 @@
 
 import React from 'react';
 import { Image, Typography, Row, Col, Button, List, Space, Avatar, Spin } from 'antd';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import ArrowLeftOutlined from '@ant-design/icons/ArrowLeftOutlined';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers'
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 /**
  * Display contents of the bookview page
