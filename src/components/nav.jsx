@@ -7,6 +7,7 @@
 
 import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
+import UserContext from '../contexts/user';
 
 /**
  * Display contents of the Nav component
@@ -14,13 +15,18 @@ import { Link } from 'react-router-dom';
  */
 function Nav(props) {
   return (
-    <>
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={ ['1'] }>
-        <Menu.Item key="1"><Link to="/">Home</Link></Menu.Item>
-        <Menu.Item key="2"><Link to="/books">Books</Link></Menu.Item>
-        <Menu.Item key="3"><Link to="/login">Sign Up</Link></Menu.Item>
-      </Menu>
-    </>
+    <UserContext.Consumer>
+      {({logout}) => ( 
+      <>
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={ ['1'] }>
+          <Menu.Item key="1"><Link to="/">Home</Link></Menu.Item>
+          <Menu.Item key="2"><Link to="/books">Books</Link></Menu.Item>
+          <Menu.Item key="3"><Link to="/login">Log in</Link></Menu.Item>
+          <Menu.Item key="4" onClick={ logout }><Link to="/">Log out</Link></Menu.Item>
+        </Menu>
+      </>
+      )}
+    </UserContext.Consumer>
   );
 }
 
