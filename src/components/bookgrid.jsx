@@ -31,9 +31,10 @@ class BookGrid extends React.Component {
     .then(status)
     .then(json)
     .then(data => {
+      console.log(data)
       this.setState({ books: data })
     })
-    .catch(err => console.error("Error fetching articles", err));
+    .catch(err => console.error("Error fetching books", err));
   }
   
   render() {

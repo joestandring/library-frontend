@@ -16,7 +16,7 @@ export function status(response) {
     return response;
   } else {
     return new Promise((resolve, reject) => {
-      return response.json().then(reject);
+      return reject(response);
     });
   }
 }

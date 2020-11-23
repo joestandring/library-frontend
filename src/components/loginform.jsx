@@ -40,13 +40,14 @@ class LoginForm extends React.Component {
     // Bind the onFinish method to this class
     this.login = this.login.bind(this);
   }
-  
+    
   login(values) {
     const { username, password } = values;
+    console.log(`logging in user: ${username}`)
     fetch(ApiConf.host + '/users/login', {
       method: 'POST',
       headers: {
-        'Authorization': 'Basic' + btoa(username + ':' + password)
+        "Authorization": "Basic " + btoa(username + ":" + password)
       },
     })
     .then(status)
@@ -54,6 +55,9 @@ class LoginForm extends React.Component {
     .then(user => {
       console.log('Login successful');
       console.log(user);
+    })
+    .catch(error => {
+      console.error(error);
     })
   }
   
