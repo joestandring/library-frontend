@@ -31,15 +31,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {loggedIn: false}
+      user: { loggedIn: false },
     }
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
   }
   
-  login(user) {
-    console.log('User being set on context');
+  login(user, password) {
     user.loggedIn = true;
+    user.password = password;
     this.setState({ user: user })
   }
   

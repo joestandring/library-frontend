@@ -8,6 +8,7 @@
 import { Row, Col, Typography, Avatar, Badge } from 'antd';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import { Link } from 'react-router-dom';
+import UserContext from '../contexts/user';
 
 const { Paragraph } = Typography;
 
@@ -20,7 +21,12 @@ function UserArea(props) {
     <>
       <Row gutter={ 16 }>
         <Col>
-          <Paragraph style={ { color: "white" } }>Good evening, User</Paragraph>
+          <UserContext.Consumer>
+            {
+              ({ user }) => { console.log("Current user: ", user.username) }
+              //({ user }) => { <Paragraph style={ { color: "white" } }>Good evening, { user.username }</Paragraph> } 
+            }
+          </UserContext.Consumer>
         </Col>
         
         <Col>

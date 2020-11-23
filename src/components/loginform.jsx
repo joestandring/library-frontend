@@ -58,7 +58,7 @@ class LoginForm extends React.Component {
     .then(user => {
       console.log('Login successful');
       console.log(user);
-      this.context.login(user);
+      this.context.login(user, password);
     })
     .catch(error => {
       console.error(error);
