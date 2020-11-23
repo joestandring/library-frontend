@@ -10,6 +10,7 @@ import { Layout } from 'antd';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+import React from 'react';
 import Home from './components/home';
 import Books from './components/books';
 import BookView from './components/bookview';
@@ -18,6 +19,7 @@ import FooterContent from './components/footercontent';
 import Login from './components/login';
 import User from './components/user';
 import Account from './components/account'
+import UserContext from './contexts/user'
 
 const { Header, Content, Footer } = Layout;
 
@@ -25,31 +27,61 @@ const { Header, Content, Footer } = Layout;
  * Display components of the app
  * @returns {string} The HTML code to display elements
  */
-function App() {
-  return (
-    <Router>
-      <Layout className="layout">
-        <Header>
-          <HeaderContent />
-        </Header>
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {loggedIn: false}
+    }
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+  
+  login(user) {
+    console.log('User being set on context');
+    user.loggedIn = true;
+    this.setState({ user: user })
+  }
+  
+  logout() {
+    console.log('User removed from context');
+    this.setState({ user: { loggedIn: false } })
+  }
+  
+  render() {
+    const context = {
+      user: this.state.userm
+      login: this.login,
+      logout: this.logout,
+    };
+    
+    return (
+      <UserContext.Provider value={ context }>
+        <Router>
+          <Layout className="layout">
+            <Header>
+              <HeaderContent />
+            </Header>
 
-        <Content>
-          <Switch>
-            <Route path="/books/:id" children={ <BookView /> } />
-            <Route path="/books" children={ <Books /> } />
-            <Route path="/login" children={ <Login /> } />
-            <Route path="/user" children={ <User /> } />
-            <Route path="/account" children={ <Account /> } />
-            <Route path="/" children={ <Home /> } />
-          </Switch>
-        </Content>
+            <Content>
+              <Switch>
+                <Route path="/books/:id" children={ <BookView /> } />
+                <Route path="/books" children={ <Books /> } />
+                <Route path="/login" children={ <Login /> } />
+                <Route path="/user" children={ <User /> } />
+                <Route path="/account" children={ <Account /> } />
+                <Route path="/" children={ <Home /> } />
+              </Switch>
+            </Content>
 
-        <Footer>
-          <FooterContent />
-        </Footer>
-      </Layout>
-    </Router>
-  );
+            <Footer>
+              <FooterContent />
+            </Footer>
+          </Layout>
+        </Router>
+      </UserContext.Provider>
+    );
+  }
 }
 
 /** Export the component to be rendered in index.js */
