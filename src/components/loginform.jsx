@@ -8,7 +8,8 @@
 import React from 'react'
 import { Form, Input, Button } from 'antd';
 import ApiConf from '../apiconf';
-import { status, json } from '../utilities/requestHandlers'
+import { status, json } from '../utilities/requestHandlers';
+import UserContext from '../contexts/user';
 
 const formItemLayout = {
   labelCol: { xs: { span: 24 }, sm: { span: 6 } },
@@ -35,6 +36,8 @@ const passwordRules = [
  * @returns {string} The HTML code to display elements
  */
 class LoginForm extends React.Component {
+  static contextType = UserContext;
+  
   constructor(props) {
     super(props);
     // Bind the onFinish method to this class
@@ -55,6 +58,7 @@ class LoginForm extends React.Component {
     .then(user => {
       console.log('Login successful');
       console.log(user);
+      this.context.login(user);
     })
     .catch(error => {
       console.error(error);

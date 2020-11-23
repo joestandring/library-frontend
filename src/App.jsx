@@ -50,7 +50,7 @@ class App extends React.Component {
   
   render() {
     const context = {
-      user: this.state.userm
+      user: this.state.user,
       login: this.login,
       logout: this.logout,
     };
