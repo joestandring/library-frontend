@@ -12,6 +12,7 @@ import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers'
 import UserContext from '../contexts/user';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const { Title } = Typography;
 
@@ -117,10 +118,6 @@ class Account extends React.Component {
               </List.Item>
             )}
           />
-          
-          <Button type="danger" style={ { marginTop:"10px" } } onClick>
-            Delete account
-          </Button>
         </div>
       </>
     );
@@ -128,4 +125,4 @@ class Account extends React.Component {
 }
 
 /** Export the component to be rendered in App.jsx */
-export default Account;
+export default withRouter(Account);

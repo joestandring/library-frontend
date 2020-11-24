@@ -96,9 +96,7 @@ class AccountEdit extends React.Component {
     if(values.password == null) {
       values.password = password;
     }
-    
-    console.log("values object:", JSON.stringify(values));
-    
+        
     fetch(ApiConf.host + '/users/' + this.state.accountInfo.ID, {
       method: 'PUT',
       body: JSON.stringify(values),

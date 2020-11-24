@@ -70,7 +70,7 @@ class App extends React.Component {
                 <Route path="/books/:id" children={ <BookView /> } />
                 <Route path="/books" children={ <Books /> } />
                 <Route path="/login" children={ <Login /> } />
-                <Route path="/user" children={ <User /> } />
+                <Route path="/users/:id" children={ <User /> } />
                 <Route path="/account/edit" children={ <AccountEdit /> } />
                 <Route path="/account" children={ <Account /> } />
                 <Route path="/" children={ <Home /> } />

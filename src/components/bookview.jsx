@@ -114,7 +114,7 @@ class BookView extends React.Component {
         userArea = (
           <>
             <Space direction="vertical">
-              <Link to={ `/user/${bookInfo.ownerID}` }>
+              <Link to={ "/users/" + bookInfo.ownerID }>
                 <Button size="large" style={ { width: "100%" } }>
                   <Space>
                     <Avatar size="small" icon={ <UserOutlined /> } />
@@ -143,7 +143,7 @@ class BookView extends React.Component {
         userArea = (
           <>
             <Space direction="vertical">
-              <Link to={ `/user/${bookInfo.ownerID}` }>
+              <Link to={ "/users/" + bookInfo.ownerID }>
                 <Button size="large" style={ { width: "100%" } }>
                   <Space>
                     <Avatar size="small" icon={ <UserOutlined /> } />
