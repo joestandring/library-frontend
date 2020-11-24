@@ -72,7 +72,7 @@ class Account extends React.Component {
       },
       {
         title: 'Email',
-        description: accountInfo.username,
+        description: accountInfo.email,
       },
       {
         title: 'First Name',
