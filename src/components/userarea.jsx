@@ -5,6 +5,8 @@
  * @see src/components/headercontent.jsx for where this module is imported
  */
 
+import React from 'react';
+import { useContext } from 'react';
 import { Row, Col, Typography, Avatar, Badge } from 'antd';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import { Link } from 'react-router-dom';
@@ -17,31 +19,37 @@ const { Paragraph } = Typography;
  * @returns {string} The HTML code to display elements
  */
 function UserArea(props) {
-  return (
-    <>
-      <Row gutter={ 16 }>
-        <Col>
-          <UserContext.Consumer>
-            {
-              ({ user }) => { console.log("Current user: ", user.username) }
-              //({ user }) => { <Paragraph style={ { color: "white" } }>Good evening, { user.username }</Paragraph> } 
-            }
-          </UserContext.Consumer>
-        </Col>
-        
-        <Col>
-          <Badge count={ 1 }>
-            <Link to="/account">
-              <Avatar 
-                size="large"
-                icon={ <UserOutlined /> }
-              />
-            </Link>
-          </Badge>
-        </Col>
-      </Row>
-    </>
-  );
+  const context = useContext(UserContext);
+  const loggedIn = context.user.loggedIn;
+  
+  // If the user a logged in, show user area
+  if(loggedIn) {
+    return (
+      <>
+        <Row gutter={ 16 }>
+          <Col>
+            <Paragraph style={ { color: "white" } }>Good evening, { context.user.username }</Paragraph>
+          </Col>
+
+          <Col>
+            <Badge count={ 1 }>
+              <Link to="/account">
+                <Avatar 
+                  size="large"
+                  icon={ <UserOutlined /> }
+                />
+              </Link>
+            </Badge>
+          </Col>
+        </Row>
+      </>
+    );
+  } else {
+    return(
+      <>
+      </>
+    )
+  }
 }
 
 /** Export the component to be rendered in headercontent.jsx */

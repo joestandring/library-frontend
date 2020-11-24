@@ -17,7 +17,7 @@ import UserContext from '../contexts/user';
  */
 function Nav(props) {
   const context = useContext(UserContext);
-  const loggedIn = context.user.loggedIn
+  const loggedIn = context.user.loggedIn;
   
   let LoginNav;
   // If the user is logged in
@@ -51,4 +51,4 @@ function Nav(props) {
 }
 
 /** Export the component to be rendered in headercontent.jsx */
-export default Nav
+export default Nav;

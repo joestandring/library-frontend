@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Avatar, Typography, Space, List, Button, Spin } from 'antd';
+import { Avatar, Typography, List, Button, Spin } from 'antd';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers'
