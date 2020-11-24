@@ -6,7 +6,7 @@
  * @see src/index.js for where the component is rendered
  */
 
-import { Layout } from 'antd';
+import { message, Layout } from 'antd';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -47,6 +47,7 @@ class App extends React.Component {
   logout() {
     console.log('User removed from context');
     this.setState({ user: { loggedIn: false } })
+    message.success('Logged out successfully');
   }
   
   render() {

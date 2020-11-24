@@ -54,7 +54,6 @@ class Account extends React.Component {
     }
     
     const accountInfo = this.state.accountInfo;
-    console.log(accountInfo);
     
     if(accountInfo.address2 === null) {
       accountInfo.address2 = '';
@@ -64,7 +63,7 @@ class Account extends React.Component {
       accountInfo.address3 = '';
     }
     
-    const address = accountInfo.address1 + accountInfo.address2 + '\n' + accountInfo.address3 + '\n' + accountInfo.city + '\n' + accountInfo.postcode;
+    const address = accountInfo.address1 + '\n' + accountInfo.address2 + '\n' + accountInfo.address3 + '\n' + accountInfo.city + '\n' + accountInfo.postcode;
     
     const listItems = [
       {
@@ -118,6 +117,10 @@ class Account extends React.Component {
               </List.Item>
             )}
           />
+          
+          <Button type="danger" style={ { marginTop:"10px" } } onClick>
+            Delete account
+          </Button>
         </div>
       </>
     );

@@ -26,9 +26,9 @@ function UserArea(props) {
   if(loggedIn) {
     return (
       <>
-        <Row gutter={ 16 }>
+        <Row gutter={ 8 }>
           <Col>
-            <Paragraph style={ { color: "white" } }>Good evening, { context.user.username }</Paragraph>
+            <Paragraph style={ { color: "white" } }>{ context.user.username }</Paragraph>
           </Col>
 
           <Col>

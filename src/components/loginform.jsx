@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { Form, Input, Button } from 'antd';
+import { message, Form, Input, Button } from 'antd';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers';
 import UserContext from '../contexts/user';
@@ -60,6 +60,7 @@ class LoginForm extends React.Component {
       console.log('Login successful');
       console.log(user);
       this.context.login(user, password);
+      message.success('Logged in successfully')
       this.props.history.push('/');
     })
     .catch(error => {

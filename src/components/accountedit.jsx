@@ -12,6 +12,7 @@ import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers'
 import UserContext from '../contexts/user';
 import MaskedInput from 'antd-mask-input';
+import { withRouter } from 'react-router-dom';
 
 const { Title } = Typography;
 
@@ -109,8 +110,7 @@ class AccountEdit extends React.Component {
     .then(status)
     .then(json)
     .then(values => {
-      console.log(values);
-      console.log('Account updated successfully')
+      this.props.history.push('/account');
     })
     .catch(error => {
       console.log(error);
@@ -229,4 +229,4 @@ class AccountEdit extends React.Component {
 }
 
 /** Export the component to be rendered in App.jsx */
-export default AccountEdit;
+export default withRouter(AccountEdit);

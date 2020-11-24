@@ -6,11 +6,12 @@
  */
 
 import React from 'react'
-import { Form, Input, Button } from 'antd';
+import { message, Form, Input, Button } from 'antd';
 // Used to create input masks for values (postcode)
 import MaskedInput from 'antd-mask-input';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers'
+import { withRouter } from 'react-router-dom';
 
 const formItemLayout = {
   labelCol: { xs: { span: 24 }, sm: { span: 6 } },
@@ -111,8 +112,8 @@ class SignUpForm extends React.Component {
     // POST the data
     .then(data => {
       console.log(data);
-      alert('User added, please sign in');
-      // Return to home page
+      message.success('Logged in successfully. Please log in')
+      this.props.history.push('/');
     })
     // Return an error in JSON if failed
     .catch(error => {
@@ -238,4 +239,4 @@ class SignUpForm extends React.Component {
 }
 
 /** Export the component to be rendered in login.jsx */
-export default SignUpForm;
+export default withRouter(SignUpForm);
