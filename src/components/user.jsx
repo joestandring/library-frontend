@@ -9,13 +9,13 @@
 import React from 'react';
 import { Avatar, Typography, Space } from 'antd';
 import UserOutlined from '@ant-design/icons/UserOutlined';
-import BookGrid from './bookgrid.jsx'
+import BookGridUser from './bookgriduser.jsx'
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers'
 import UserContext from '../contexts/user';
 import { withRouter } from 'react-router';
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 /**
  * Display contents of the user page
@@ -62,7 +62,7 @@ class User extends React.Component {
             <Avatar size={ 128 } icon={ <UserOutlined /> } />
             <Title level={ 4 }>{ userInfo.username }</Title>
             <Title level={ 2 }>Owned books</Title>
-            <BookGrid />
+            <BookGridUser />
           </Space>
         </div>
       </>
