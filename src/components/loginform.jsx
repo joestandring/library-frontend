@@ -10,6 +10,7 @@ import { Form, Input, Button } from 'antd';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers';
 import UserContext from '../contexts/user';
+import { withRouter } from 'react-router-dom';
 
 const formItemLayout = {
   labelCol: { xs: { span: 24 }, sm: { span: 6 } },
@@ -59,6 +60,7 @@ class LoginForm extends React.Component {
       console.log('Login successful');
       console.log(user);
       this.context.login(user, password);
+      this.props.history.push('/');
     })
     .catch(error => {
       console.error(error);
@@ -101,4 +103,4 @@ class LoginForm extends React.Component {
 };
 
 /** Export the component to be rendered in login.jsx */
-export default LoginForm;
+export default withRouter(LoginForm);

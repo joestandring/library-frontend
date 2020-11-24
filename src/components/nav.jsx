@@ -5,6 +5,8 @@
  * @see src/components/headercontent.jsx for where this module is imported
  */
 
+import React from 'react';
+import { useContext } from 'react';
 import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import UserContext from '../contexts/user';
@@ -14,19 +16,37 @@ import UserContext from '../contexts/user';
  * @returns {string} The HTML code to display elements
  */
 function Nav(props) {
-  return (
-    <UserContext.Consumer>
-      {({logout}) => ( 
+  const context = useContext(UserContext);
+  const loggedIn = context.user.loggedIn
+  
+  let LoginNav;
+  // If the user is logged in
+  if(!loggedIn) {
+    LoginNav = (
       <>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={ ['1'] }>
-          <Menu.Item key="1"><Link to="/">Home</Link></Menu.Item>
-          <Menu.Item key="2"><Link to="/books">Books</Link></Menu.Item>
-          <Menu.Item key="3"><Link to="/login">Log in</Link></Menu.Item>
-          <Menu.Item key="4" onClick={ logout }><Link to="/">Log out</Link></Menu.Item>
-        </Menu>
+        <Menu.Item key="3">
+          <Link to="/login">Log in</Link>
+        </Menu.Item>
       </>
-      )}
-    </UserContext.Consumer>
+    );
+  } else {
+    LoginNav = (
+      <>
+        <Menu.Item key="3" onClick={ context.logout }>
+          <Link to="/">Log out</Link>
+        </Menu.Item>
+      </>
+    );
+  }
+  
+  return (
+    <>
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={ ['1'] }>
+        <Menu.Item key="1"><Link to="/">Home</Link></Menu.Item>
+        <Menu.Item key="2"><Link to="/books">Books</Link></Menu.Item>
+        { LoginNav }
+      </Menu>
+    </>
   );
 }
 
