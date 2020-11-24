@@ -18,8 +18,9 @@ import HeaderContent from './components/headercontent';
 import FooterContent from './components/footercontent';
 import Login from './components/login';
 import User from './components/user';
-import Account from './components/account'
-import UserContext from './contexts/user'
+import Account from './components/account';
+import AccountEdit from './components/accountedit';
+import UserContext from './contexts/user';
 
 const { Header, Content, Footer } = Layout;
 
@@ -69,6 +70,7 @@ class App extends React.Component {
                 <Route path="/books" children={ <Books /> } />
                 <Route path="/login" children={ <Login /> } />
                 <Route path="/user" children={ <User /> } />
+                <Route path="/account/edit" children={ <AccountEdit /> } />
                 <Route path="/account" children={ <Account /> } />
                 <Route path="/" children={ <Home /> } />
               </Switch>

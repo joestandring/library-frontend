@@ -11,6 +11,7 @@ import UserOutlined from '@ant-design/icons/UserOutlined';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers'
 import UserContext from '../contexts/user';
+import { Link } from 'react-router-dom';
 
 const { Title } = Typography;
 
@@ -90,17 +91,19 @@ class Account extends React.Component {
     
     return(
       <>
-        <div style={ { padding: '2% 10%' } }>
-          <div style={ { textAlign: 'center' } }>
-            <UserContext.Consumer>
-              {({user}) => (
-                <>
-                  <Avatar size={ 128 } icon={ <UserOutlined /> } />
-                  <Title level={ 4 }>{ user.username }</Title>
-                </>
-              )}
-            </UserContext.Consumer>
-          </div>
+        <div style={ { padding: '2% 10%', textAlign: 'center' } }>       
+          <UserContext.Consumer>
+            {({user}) => (
+              <>
+                <Avatar size={ 128 } icon={ <UserOutlined /> } />
+                <Title level={ 4 }>{ user.username }</Title>
+              </>
+            )}
+          </UserContext.Consumer>
+
+          <Button type="primary" style={ { marginBottom:"10px" } }>
+            <Link to="/account/edit">Edit</Link>
+          </Button>
 
           <List
             bordered
@@ -112,11 +115,6 @@ class Account extends React.Component {
                   title={ item.title }
                   description={ item.description }
                 />
-                <div>
-                  <Button type="primary">
-                    Edit
-                  </Button>
-                </div>
               </List.Item>
             )}
           />
