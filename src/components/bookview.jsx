@@ -123,18 +123,12 @@ class BookView extends React.Component {
                 </Button>
               </Link>
 
-              <Row justify="center" gutter={ 16 }>
-                <Col>
-                  <Button type="primary">
-                    Available
-                  </Button>
-                </Col>
-
-                <Col>
-                  <Button type="primary">
-                    Message
-                  </Button>
-                </Col>
+              <Row justify="center">
+                <Button type="primary">
+                  <Link to={ "/requests" }>
+                    Request book
+                  </Link>
+                </Button>
               </Row>
             </Space>
           </>

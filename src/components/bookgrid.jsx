@@ -45,6 +45,11 @@ class BookGrid extends React.Component {
       );
     }
     
+    /**
+     * Create a div for every item in the books state
+     * @param {object} book The book object to create a div for
+     * @returns {string} JSX for a book card
+     */
     const cardList = this.state.books.map(book => {
       return(
         // Assign key to each item and pass values to bookcard component

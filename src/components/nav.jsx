@@ -35,6 +35,9 @@ function Nav(props) {
         <Menu.Item key="3" onClick={ context.logout }>
           <Link to="/">Log out</Link>
         </Menu.Item>
+        <Menu.Item key="4">
+          <Link to="/requests">Requests</Link>
+        </Menu.Item>
       </>
     );
   }

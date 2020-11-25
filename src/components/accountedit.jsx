@@ -65,6 +65,7 @@ class AccountEdit extends React.Component {
       this.setState({ accountInfo: data })
     })
     .catch(err => console.error(`Error fetching for user ${username}`, err));
+    
   }
   
   /**

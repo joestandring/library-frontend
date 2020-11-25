@@ -20,6 +20,7 @@ import Login from './components/login';
 import User from './components/user';
 import Account from './components/account';
 import AccountEdit from './components/accountedit';
+import Requests from './components/requests';
 import UserContext from './contexts/user';
 
 const { Header, Content, Footer } = Layout;
@@ -73,6 +74,7 @@ class App extends React.Component {
                 <Route path="/users/:id" children={ <User /> } />
                 <Route path="/account/edit" children={ <AccountEdit /> } />
                 <Route path="/account" children={ <Account /> } />
+                <Route path="/requests" children={ <Requests /> } />
                 <Route path="/" children={ <Home /> } />
               </Switch>
             </Content>
