@@ -146,7 +146,7 @@ class AccountEdit extends React.Component {
               label="Username"
               name="username"
             >
-              <Input placeholder={ accountInfo.username } defaultValue={ accountInfo.username } />
+              <Input placeholder={ accountInfo.username } />
             </Form.Item>
 
             <Form.Item
