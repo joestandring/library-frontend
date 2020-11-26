@@ -6,12 +6,23 @@
  */
 
 import React from 'react';
-import { Typography, Spin } from 'antd';
+import { Typography, Spin, Card, Row, Col } from 'antd';
 import UserContext from '../contexts/user';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers'
 
 const { Title } = Typography;
+const { Meta } = Card;
+
+function getBookByID(id) {
+  fetch(ApiConf.host + `/books/${id}`)
+  .then(status)
+  .then(json)
+  .then(data => {
+    return(data);
+  })
+  .catch(err => console.error(`Error fetching for book ${id}`, err));
+}
 
 /**
  * Display contents of the Account page
@@ -24,7 +35,7 @@ class Requests extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      outgoing: []
+      outgoing: [],
     }
   }
 
@@ -47,24 +58,41 @@ class Requests extends React.Component {
     .catch(err => console.error('Error fetching outbound requests', err));
   }
   
-  getBookInfo(bookID) {
-    fetch(ApiConf.host + '/books/' + bookID)
-    .then(status)
-    .then(json)
-    .then(data => {
-      return data;
-    })
-  }
-  
   render() {
     if (!this.state.outgoing) {
       return <Spin />
     }
+        
+    /**
+     * Card containing a single outgoing book request
+     * @returns {string} JSX for the card
+     */
+    const messages = this.state.outgoing.map(request => {
+      return(
+        <Col justify="space-around">
+          <Card
+            Hoverable
+            style={ { width: 300 } }
+          >
+            <Meta
+              title={ request.bookID }
+              description={ request.message }
+            />
+          </Card>
+        </Col>
+      );
+    });
     
     return(
       <>
         <div style={ { padding: '2% 20%', textAlign: 'center' } }>
           <Title>Your book requests</Title>
+          <Title level={ 2 }>Outgoing</Title>
+          <div style={ { padding: "10px" } }>
+            <Row type="flex" justify="space-around">
+              { messages }
+            </Row>
+          </div>
         </div>
       </>
     );
