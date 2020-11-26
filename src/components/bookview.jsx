@@ -148,7 +148,9 @@ class BookView extends React.Component {
 
               <Row justify="center">
                 <Button type="primary">
-                  Edit book
+                  <Link to={ "/books/" + this.props.match.params.id + "/edit" }>
+                    Edit book
+                  </Link>
                 </Button>
               </Row>
             </Space>

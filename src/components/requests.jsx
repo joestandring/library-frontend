@@ -14,16 +14,6 @@ import { status, json } from '../utilities/requestHandlers'
 const { Title } = Typography;
 const { Meta } = Card;
 
-function getBookByID(id) {
-  fetch(ApiConf.host + `/books/${id}`)
-  .then(status)
-  .then(json)
-  .then(data => {
-    return(data);
-  })
-  .catch(err => console.error(`Error fetching for book ${id}`, err));
-}
-
 /**
  * Display contents of the Account page
  * @returns {string} The HTML code to display elements

@@ -35,7 +35,7 @@ const postcodeRules = [
 ];
 
 /**
- * Display contents of the Account page
+ * Display contents of the AccountEdit page
  * @returns {string} The HTML code to display elements
  */
 class AccountEdit extends React.Component {
