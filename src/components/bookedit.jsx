@@ -6,10 +6,11 @@
 
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Typography, Row, Col, Button, Form, Input, Radio } from 'antd';
+import { Typography, Row, Col, Button, Form, Input, Radio, message } from 'antd';
 import UserContext from '../contexts/user';
 import ApiConf from '../apiconf';
-import { status, json } from '../utilities/requestHandlers'
+import { status, json } from '../utilities/requestHandlers';
+import MaskedInput from 'antd-mask-input';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -23,6 +24,14 @@ const tailFormItemLayout = {
   wrapperCol: { xs: { span: 24, offset: 0 }, sm: { span: 12, offset: 12 } },
 };
 
+const imgRules = [
+  { type: 'url', message: 'Please input a valid url' }
+];
+
+const noWhitespace = [
+  { whitespace: true },
+];
+
 /**
  * Display contents of the BookEdit page
  * @returns {string} The HTML code to display elements
@@ -35,7 +44,7 @@ class BookEdit extends React.Component {
     super(props);
     this.state = {
       bookInfo: [],
-      radioValue: 'yes'
+      radioValue: ''
     }
   }
 
@@ -57,6 +66,48 @@ class BookEdit extends React.Component {
       }
     })
     .catch(err => console.error(`Error fetching for book ${id}`, err));
+  }
+  
+  onChange = e => {
+    this.setState({ radioValue: e.target.value });
+  }
+  
+  onFinish = (values) => {
+    const username = this.context.user.username;
+    const password = this.context.user.password;
+    
+    const keys = Object.keys(values);
+    
+    if(this.state.radioValue === 'yes') {
+      values.available = 1;
+    } else {
+      values.available = 0;
+    }
+
+    // Change empty values to those stored in state
+    for (let i = 0; i < keys.length; i++) {
+      if (values[keys[i]] == null) {
+        values[keys[i]] = this.state.bookInfo[keys[i]];
+      }
+    }
+    
+    fetch(ApiConf.host + '/books/' + this.state.bookInfo.ID, {
+      method: 'PUT',
+      body: JSON.stringify(values),
+      headers: {
+        "Authorization": "Basic " + btoa(username + ":" + password),
+        "Content-Type": "application/json"
+      }
+    })
+    .then(status)
+    .then(json)
+    .then(values => {
+      message.success('Book updated');
+      this.props.history.push('/books/' + this.props.match.params.id);
+    })
+    .catch(error => {
+      message.error('Book update failed');
+    })
   }
   
   render() {
@@ -81,13 +132,15 @@ class BookEdit extends React.Component {
                     <Form
                       { ...formItemLayout }
                       name="update"
+                      onFinish={ this.onFinish }
                       scrollToFirstError
                     >
                       <Form.Item
                         label="Available"
                         name="available"
                       >
-                        <Radio.Group defaultValue={ this.state.radioValue }>
+                        <></>
+                        <Radio.Group defaultValue={ this.state.radioValue } onChange={ this.onChange } value={ this.state.radioValue }>
                           <Radio.Button value="yes">Yes</Radio.Button>
                           <Radio.Button value="no">No</Radio.Button>
                         </Radio.Group>
@@ -96,6 +149,7 @@ class BookEdit extends React.Component {
                       <Form.Item
                         label="Title"
                         name="title"
+                        rules={ noWhitespace }
                       >
                         <Input placeholder={ bookInfo.title } />
                       </Form.Item>
@@ -103,6 +157,7 @@ class BookEdit extends React.Component {
                       <Form.Item
                         label="Author first name"
                         name="authorFirst"
+                        rules={ noWhitespace }
                       >
                         <Input placeholder={ bookInfo.authorFirst } />
                       </Form.Item>
@@ -110,6 +165,7 @@ class BookEdit extends React.Component {
                       <Form.Item
                         label="Author last name"
                         name="authorLast"
+                        rules={ noWhitespace }
                       >
                         <Input placeholder={ bookInfo.authorLast } />
                       </Form.Item>
@@ -117,13 +173,15 @@ class BookEdit extends React.Component {
                       <Form.Item
                         label="ISBN"
                         name="isbn"
+                        rules={ noWhitespace }
                       >
-                        <Input placeholder={ bookInfo.isbn } />
+                        <MaskedInput mask="1111111111" name="isbn" onChange={ this.onChange } placeholder={ bookInfo.isbn }/>
                       </Form.Item>
                       
                       <Form.Item
                         label="Description"
                         name="summary"
+                        rules={ noWhitespace }
                       >
                         <TextArea rows= { 1 } placeholder={ bookInfo.summary } />
                       </Form.Item>
@@ -131,6 +189,7 @@ class BookEdit extends React.Component {
                       <Form.Item
                         label="Image link"
                         name="imgLink"
+                        rules={ imgRules }
                       >
                         <Input placeholder={ bookInfo.imgLink } />
                       </Form.Item>
@@ -138,6 +197,7 @@ class BookEdit extends React.Component {
                       <Form.Item
                         label="Genre"
                         name="genre"
+                        rules={ noWhitespace }
                       >
                         <Input placeholder={ bookInfo.genre } />
                       </Form.Item>
@@ -145,6 +205,7 @@ class BookEdit extends React.Component {
                       <Form.Item
                         label="Publisher"
                         name="publisher"
+                        rules={ noWhitespace }
                       >
                         <Input placeholder={ bookInfo.publisher } />
                       </Form.Item>
@@ -152,8 +213,9 @@ class BookEdit extends React.Component {
                       <Form.Item
                         label="Year published"
                         name="publishYear"
+                        rules={ noWhitespace }
                       >
-                        <Input placeholder={ bookInfo.publishYear } />
+                        <MaskedInput mask="1111" name="publishYear" onChange={ this.onChange } placeholder={ bookInfo.publishYear } />
                       </Form.Item>
 
                       <Form.Item { ...tailFormItemLayout }>

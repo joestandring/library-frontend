@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Avatar, Typography, Form, Button, Spin, Input } from 'antd';
+import { Avatar, Typography, Form, Button, Spin, Input, message } from 'antd';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers'
@@ -27,11 +27,17 @@ const tailFormItemLayout = {
 
 // Form validation rules
 const emailRules = [
-  { type: 'email', message: 'Please input a valid email address' }
+  { type: 'email', message: 'Please input a valid email address' },
+  { whitespace: true },
 ];
 
 const postcodeRules = [
-  { pattern: /[A-Z][A-Z][0-9] [0-9][A-Z][A-Z]/, message: 'Please input a valid postcode (e.g. LO1 1AA)' }
+  { pattern: /[A-Z][A-Z][0-9] [0-9][A-Z][A-Z]/, message: 'Please input a valid postcode (e.g. LO1 1AA)' },
+  { whitespace: true },
+];
+
+const noWhitespace = [
+  { whitespace: true },
 ];
 
 /**
@@ -109,9 +115,11 @@ class AccountEdit extends React.Component {
     .then(status)
     .then(json)
     .then(values => {
+      message.success('Account updated');
       this.props.history.push('/account');
     })
     .catch(error => {
+      message.error('Account update failed');
       console.log(error);
     })
   }
@@ -145,6 +153,7 @@ class AccountEdit extends React.Component {
             <Form.Item
               label="Username"
               name="username"
+              rules={ noWhitespace }
             >
               <Input placeholder={ accountInfo.username } />
             </Form.Item>
@@ -160,6 +169,7 @@ class AccountEdit extends React.Component {
             <Form.Item
               label="Password"
               name="password"
+              rules={ noWhitespace }
               hasFeedback
             >
               <Input.Password />
@@ -168,6 +178,7 @@ class AccountEdit extends React.Component {
             <Form.Item
               label="First Name"
               name="firstName"
+              rules={ noWhitespace }
             >
               <Input placeholder={ accountInfo.firstName } />
             </Form.Item>
@@ -175,6 +186,7 @@ class AccountEdit extends React.Component {
             <Form.Item
               label="Last Name"
               name="lastName"
+              rules={ noWhitespace }
             >
               <Input placeholder={ accountInfo.lastName } />
             </Form.Item>
@@ -182,6 +194,7 @@ class AccountEdit extends React.Component {
             <Form.Item
               label="Address Line 1"
               name="address1"
+              rules={ noWhitespace }
             >
               <Input placeholder={ accountInfo.address1 } />
             </Form.Item>
@@ -189,6 +202,7 @@ class AccountEdit extends React.Component {
             <Form.Item
               label="Address Line 2"
               name="address2"
+              rules={ noWhitespace }
             >
               <Input placeholder={ accountInfo.address2 } />
             </Form.Item>
@@ -196,6 +210,7 @@ class AccountEdit extends React.Component {
             <Form.Item
               label="Address Line 3"
               name="address3"
+              rules={ noWhitespace }
             >
               <Input placeholder={ accountInfo.address3 } />
             </Form.Item>
@@ -203,6 +218,7 @@ class AccountEdit extends React.Component {
             <Form.Item
               label="City"
               name="city"
+              rules={ noWhitespace }
             >
               <Input placeholder={ accountInfo.city } />
             </Form.Item>

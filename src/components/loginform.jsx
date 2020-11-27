@@ -64,6 +64,7 @@ class LoginForm extends React.Component {
       this.props.history.push('/');
     })
     .catch(error => {
+      message.error('Login failed')
       console.error(error);
     })
   }
