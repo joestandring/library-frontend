@@ -102,7 +102,6 @@ class BookView extends React.Component {
     ];
         
     let userArea;
-    
     if (!loggedIn) {
       userArea = (
         <>
@@ -111,6 +110,15 @@ class BookView extends React.Component {
       );
     } else {
       if (ownerInfo.username !== this.context.user.username) {
+        let buttonText;
+        let disabled;
+        if (bookInfo.available === 1) {
+          buttonText = 'Available';
+        } else {
+          buttonText = 'Unavailable';
+          disabled = true;
+        }
+        
         userArea = (
           <>
             <Space direction="vertical">
@@ -124,9 +132,9 @@ class BookView extends React.Component {
               </Link>
 
               <Row justify="center">
-                <Button type="primary">
+                <Button type="primary" disabled={ disabled }>
                   <Link to={ "/requests" }>
-                    Request book
+                    { buttonText }
                   </Link>
                 </Button>
               </Row>
