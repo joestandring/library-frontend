@@ -22,6 +22,7 @@ import Account from './components/account';
 import AccountEdit from './components/accountedit';
 import Requests from './components/requests';
 import BookEdit from './components/bookedit'
+import BookAdd from './components/bookadd'
 import UserContext from './contexts/user';
 
 const { Header, Content, Footer } = Layout;
@@ -69,6 +70,7 @@ class App extends React.Component {
 
             <Content>
               <Switch>
+                <Route path="/books/new" children={ <BookAdd /> } />
                 <Route path="/books/:id/edit" children={ <BookEdit /> } />
                 <Route path="/books/:id" children={ <BookView /> } />
                 <Route path="/books" children={ <Books /> } />

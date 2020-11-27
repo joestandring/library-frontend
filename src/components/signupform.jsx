@@ -10,7 +10,7 @@ import { message, Form, Input, Button } from 'antd';
 // Used to create input masks for values (postcode)
 import MaskedInput from 'antd-mask-input';
 import ApiConf from '../apiconf';
-import { status, json } from '../utilities/requestHandlers'
+import { status, json } from '../utilities/requestHandlers';
 import { withRouter } from 'react-router-dom';
 
 const formItemLayout = {
@@ -112,11 +112,12 @@ class SignUpForm extends React.Component {
     // POST the data
     .then(data => {
       console.log(data);
-      message.success('Logged in successfully. Please log in')
+      message.success('Account created successfully. Please log in')
       this.props.history.push('/');
     })
     // Return an error in JSON if failed
     .catch(error => {
+      message.error('Account creation failed');
       alert(`Error:${JSON.stringify(error)}`);
     });
   }

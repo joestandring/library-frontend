@@ -25,10 +25,21 @@ const tailFormItemLayout = {
 };
 
 const imgRules = [
-  { type: 'url', message: 'Please input a valid url' }
+  { type: 'url', message: 'Please input a valid url' },
+  { whitespace: true },
 ];
 
 const noWhitespace = [
+  { whitespace: true },
+];
+
+const isbnRules = [
+  { pattern: /[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/, message: 'Please input a valid ISBN number' },
+  { whitespace: true },
+];
+
+const yearRules = [
+  { pattern: /[0-9][0-9][0-9][0-9]/, message: 'Please input a valid year' },
   { whitespace: true },
 ];
 
@@ -173,7 +184,7 @@ class BookEdit extends React.Component {
                       <Form.Item
                         label="ISBN"
                         name="isbn"
-                        rules={ noWhitespace }
+                        rules={ isbnRules }
                       >
                         <MaskedInput mask="1111111111" name="isbn" onChange={ this.onChange } placeholder={ bookInfo.isbn }/>
                       </Form.Item>
@@ -205,7 +216,7 @@ class BookEdit extends React.Component {
                       <Form.Item
                         label="Publisher"
                         name="publisher"
-                        rules={ noWhitespace }
+                        rules={ yearRules }
                       >
                         <Input placeholder={ bookInfo.publisher } />
                       </Form.Item>
