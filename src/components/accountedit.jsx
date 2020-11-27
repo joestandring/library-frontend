@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Avatar, Typography, Form, Button, Spin, Input, message } from 'antd';
+import { Popconfirm, Avatar, Typography, Form, Button, Spin, Input, message } from 'antd';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers'
@@ -53,6 +53,8 @@ class AccountEdit extends React.Component {
     this.state = {
       accountInfo: []
     }
+    
+    this.delete = this.delete.bind(this);
   }
   
   // Triggered when React loads virtual DOM.
@@ -121,6 +123,28 @@ class AccountEdit extends React.Component {
     .catch(error => {
       message.error('Account update failed');
       console.log(error);
+    })
+  }
+  
+  delete() {
+    const username = this.context.user.username;
+    const password = this.context.user.password;
+    
+    fetch(ApiConf.host + '/users/' + this.state.accountInfo.ID, {
+      method: 'DELETE',
+      headers: {
+        "Authorization": "Basic " + btoa(username + ":" + password)
+      }
+    })
+    .then(status)
+    .then(json)
+    .then( data => {
+      message.success('Account deleted');
+      this.props.history.push('/');
+    })
+    .catch( err => {
+      message.error('Account deletion failed');
+      console.log(err);
     })
   }
   
@@ -237,6 +261,17 @@ class AccountEdit extends React.Component {
               </Button>
             </Form.Item>
           </Form>
+          
+          <Popconfirm
+            title="Are you sure you want to delete this account?"
+            onConfirm={ this.delete }
+            okText="Yes, delete my account"
+            cancelText="Never mind"
+          >
+            <Button danger>
+              Delete account
+            </Button>
+          </Popconfirm>
         </div>
       </>
     );
