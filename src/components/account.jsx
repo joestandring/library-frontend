@@ -101,9 +101,19 @@ class Account extends React.Component {
             )}
           </UserContext.Consumer>
 
-          <Button type="primary" style={ { marginBottom:"10px" } }>
-            <Link to="/account/edit">Edit</Link>
-          </Button>
+          <div style={ { margin: "10px" } }>
+            <Button type="primary" style={ { marginRight: "5px" } }>
+              <Link to="/account/edit">Edit</Link>
+            </Button>
+
+            <Button type="primary">
+              <UserContext.Consumer>
+                {({user}) => (
+                  <Link to={ "/users/" + user.ID }>Public profile</Link>
+                )}
+              </UserContext.Consumer>
+            </Button>
+          </div>
 
           <List
             bordered

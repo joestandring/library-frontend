@@ -5,10 +5,13 @@
  * @see src/App.jsx for where this module is imported
  */
 
-import { Typography, Input } from 'antd';
+import { useContext } from 'react';
+import { Typography, Input, Button, Divider} from 'antd';
 import SearchResults from './searchresults';
+import UserContext from '../contexts/user';
+import { Link } from 'react-router-dom';
 
-const { Title } = Typography;
+const { Title, Paragraph } = Typography;
 const { Search } = Input;
 
 /**
@@ -16,10 +19,38 @@ const { Search } = Input;
  * @returns {string} The HTML code to display elements
  */
 function Books(props) {
+  const context = useContext(UserContext);
+  const loggedIn = context.user.loggedIn;
+  
+  let addBooks;
+  if(loggedIn) {
+    addBooks = (
+      <div>
+        <Button type="primary" style={ { marginRight: "5px" } }>
+          <Link to="/books/new">
+            Add book
+          </Link>
+        </Button>
+
+        <Button type="primary">
+          <Link to={ "/users/" + context.user.ID }>
+            Your books
+          </Link>
+        </Button>
+      </div>
+    );
+  } else {
+    addBooks = (
+      <Paragraph><Link to="/login">Log in</Link> to add books</Paragraph>
+    );
+  }
+  
   return(
     <>
       <div style={ { padding: '2% 10%', textAlign: 'center' } }>
         <Title>Find the perfect book</Title>
+        { addBooks }
+        <Divider />
         <Title level={ 2 }>Search all books</Title>
          
         <Search placeholder="Search books"
