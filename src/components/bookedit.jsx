@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Typography, Row, Col, Button, Form, Input, Radio, message } from 'antd';
+import { Popconfirm, Typography, Row, Col, Button, Form, Input, Radio, message } from 'antd';
 import UserContext from '../contexts/user';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers';
@@ -57,6 +57,8 @@ class BookEdit extends React.Component {
       bookInfo: [],
       radioValue: ''
     }
+    
+    this.delete = this.delete.bind(this);
   }
 
   
@@ -121,6 +123,28 @@ class BookEdit extends React.Component {
     })
   }
   
+  delete() {
+    const username = this.context.user.username;
+    const password = this.context.user.password;
+    
+    fetch(ApiConf.host + '/books/' + this.state.bookInfo.ID, {
+      method: 'DELETE',
+      headers: {
+        "Authorization": "Basic " + btoa(username + ":" + password)
+      }
+    })
+    .then(status)
+    .then(json)
+    .then( data => {
+      message.success('Book deleted');
+      this.props.history.push('/books');
+    })
+    .catch( err => {
+      message.error('Book deletion failed');
+      console.log(err);
+    })
+  }
+  
   render() {
     const bookInfo = this.state.bookInfo
     const id = this.context.user.ID
@@ -131,10 +155,26 @@ class BookEdit extends React.Component {
           <div style={ { padding: '2% 5%' } }>
             <Row gutter={ 32 }>
               <Col>
-                <img
-                  src={ bookInfo.imgLink }
-                  alt={ bookInfo.title }
-                />
+                <Row>
+                  <img
+                    src={ bookInfo.imgLink }
+                    alt={ bookInfo.title }
+                  />
+                </Row>
+                <Row>
+                  <div style={ { margin: "auto", marginTop: "10px" } }>
+                    <Popconfirm
+                      title="Are you sure you want to delete this book?"
+                      onConfirm={ this.delete }
+                      okText="Yes, delete this book"
+                      cancelText="Never mind"
+                    >
+                      <Button danger>
+                        Delete book
+                      </Button>
+                    </Popconfirm>
+                  </div>
+                </Row>
               </Col>
 
               <Col flex="auto">
