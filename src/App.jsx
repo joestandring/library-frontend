@@ -21,8 +21,9 @@ import User from './components/user';
 import Account from './components/account';
 import AccountEdit from './components/accountedit';
 import Requests from './components/requests';
-import BookEdit from './components/bookedit'
-import BookAdd from './components/bookadd'
+import BookEdit from './components/bookedit';
+import BookAdd from './components/bookadd';
+import RequestView from './components/requestview';
 import UserContext from './contexts/user';
 
 const { Header, Content, Footer } = Layout;
@@ -78,6 +79,7 @@ class App extends React.Component {
                 <Route path="/users/:id" children={ <User /> } />
                 <Route path="/account/edit" children={ <AccountEdit /> } />
                 <Route path="/account" children={ <Account /> } />
+                <Route path="/requests/:id" children={ <RequestView />} />
                 <Route path="/requests" children={ <Requests /> } />
                 <Route path="/" children={ <Home /> } />
               </Switch>

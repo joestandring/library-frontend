@@ -2,6 +2,7 @@ import React from 'react';
 import { Card } from 'antd';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers';
+import { Link } from 'react-router-dom';
 
 const { Meta } = Card
 
@@ -25,13 +26,15 @@ class RequestCard extends React.Component {
   
   render() {
     return(
-      <Card
-        hoverable
-        cover={<img alt="test" src={ this.state.bookInfo.imgLink } style={ { height: "450px", "object-fit": "cover" } } /> }
-        style={ { width: 300 } }
-      >
-        <Meta title={ this.state.bookInfo.title } description={ this.props.message } />
-      </Card>
+      <Link to={ "/requests/" + this.props.ID }>
+        <Card
+          hoverable
+          cover={<img alt="test" src={ this.state.bookInfo.imgLink } style={ { height: "450px", "object-fit": "cover" } } /> }
+          style={ { width: 300 } }
+        >
+          <Meta title={ this.state.bookInfo.title } description={ this.props.message } />
+        </Card>
+      </Link>
     )
   }
 }
