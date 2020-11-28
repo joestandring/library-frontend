@@ -6,13 +6,13 @@
  */
 
 import React from 'react';
-import { Typography, Spin, Card, Row, Col } from 'antd';
+import { Typography, Spin, Row } from 'antd';
 import UserContext from '../contexts/user';
 import ApiConf from '../apiconf';
-import { status, json } from '../utilities/requestHandlers'
+import { status, json } from '../utilities/requestHandlers';
+import RequestCard from './requestcard';
 
 const { Title } = Typography;
-const { Meta } = Card;
 
 /**
  * Display contents of the Account page
@@ -59,17 +59,7 @@ class Requests extends React.Component {
      */
     const messages = this.state.outgoing.map(request => {
       return(
-        <Col justify="space-around">
-          <Card
-            Hoverable
-            style={ { width: 300 } }
-          >
-            <Meta
-              title={ request.bookID }
-              description={ request.message }
-            />
-          </Card>
-        </Col>
+        <RequestCard { ...request } />
       );
     });
     
