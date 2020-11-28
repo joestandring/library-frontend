@@ -113,7 +113,7 @@ class BookView extends React.Component {
         let buttonText;
         let disabled;
         if (bookInfo.available === 1) {
-          buttonText = 'Available';
+          buttonText = 'Request this book';
         } else {
           buttonText = 'Unavailable';
           disabled = true;
@@ -133,7 +133,7 @@ class BookView extends React.Component {
 
               <Row justify="center">
                 <Button type="primary" disabled={ disabled }>
-                  <Link to={ "/requests" }>
+                  <Link to={ "/books/" + bookInfo.ID + "/request" }>
                     { buttonText }
                   </Link>
                 </Button>

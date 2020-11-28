@@ -65,7 +65,7 @@ class Requests extends React.Component {
     
     return(
       <>
-        <div style={ { padding: '2% 20%', textAlign: 'center' } }>
+        <div style={ { padding: '2% 10%', textAlign: 'center' } }>
           <Title>Your book requests</Title>
           <Title level={ 2 }>Outgoing</Title>
           <div style={ { padding: "10px" } }>
