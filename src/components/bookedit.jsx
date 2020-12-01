@@ -141,7 +141,6 @@ class BookEdit extends React.Component {
     })
     .catch( err => {
       message.error('Book deletion failed');
-      console.log(err);
     })
   }
   

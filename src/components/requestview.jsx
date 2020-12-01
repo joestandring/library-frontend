@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Comment, Avatar } from 'antd';
+import { Typography, Comment, Avatar, message, Popconfirm, Button } from 'antd';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers';
 import UserContext from '../contexts/user';
@@ -20,6 +20,8 @@ class RequestView extends React.Component {
       userInfo: [],
       bookOwner: []
     }
+    
+    this.delete = this.delete.bind(this);
   }
 
   componentDidMount() {
@@ -86,6 +88,30 @@ class RequestView extends React.Component {
     .catch(err => console.error(`Error fetching for user ${this.state.bookInfo.ownerID}`, err));
   }
   
+  delete() {
+    const username = this.context.user.username;
+    const password = this.context.user.password;
+    
+    console.log(this.state.request)
+    
+    fetch(ApiConf.host + '/requests/' + this.state.request.ID, {
+      method: 'DELETE',
+      headers: {
+        "Authorization": "Basic " + btoa(username + ":" + password)
+      }
+    })
+    .then(status)
+    .then(json)
+    .then( data => {
+      message.success('Request deleted');
+      this.props.history.push('/requests');
+    })
+    .catch( err => {
+      message.error('Request deletion failed');
+      console.log(err);
+    })
+  }  
+  
   render() {
     let accepted;
     if (this.state.request.accepted === 0) {
@@ -128,6 +154,16 @@ class RequestView extends React.Component {
         </div>
         <div style={ { textAlign: "center", margin: "10px" } }>
           { accepted }
+          <Popconfirm
+            title="Are you sure you want to delete this request?"
+            onConfirm={ this.delete }
+            okText="Yes, delete this request"
+            cancelText="Never mind"
+          >
+            <Button danger>
+              Delete request
+            </Button>
+          </Popconfirm>
         </div>
       </div>
     )
