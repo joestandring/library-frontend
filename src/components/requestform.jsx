@@ -77,7 +77,7 @@ class RequestForm extends React.Component {
     .then(data => {
       console.log(data);
       message.success('Request made')
-      this.props.history.push('/');
+      this.props.history.push('/requests');
     })
     // Return an error in JSON if failed
     .catch(error => {
