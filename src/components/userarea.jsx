@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { useContext } from 'react';
-import { Row, Col, Typography, Avatar, Badge } from 'antd';
+import { Row, Col, Typography, Avatar } from 'antd';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import { Link } from 'react-router-dom';
 import UserContext from '../contexts/user';
@@ -32,14 +32,12 @@ function UserArea(props) {
           </Col>
 
           <Col>
-            <Badge count={ 1 }>
-              <Link to="/account">
-                <Avatar 
-                  size="large"
-                  icon={ <UserOutlined /> }
-                />
-              </Link>
-            </Badge>
+            <Link to="/account">
+              <Avatar 
+                size="large"
+                icon={ <UserOutlined /> }
+              />
+            </Link>
           </Col>
         </Row>
       </>
