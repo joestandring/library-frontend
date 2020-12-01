@@ -10,6 +10,7 @@ import { useContext } from 'react';
 import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import UserContext from '../contexts/user';
+import logo from '../logo.png';
 
 /**
  * Display contents of the Nav component
@@ -44,6 +45,7 @@ function Nav(props) {
   
   return (
     <>
+      <img src={ logo } alt="logo" className="logo" />
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={ ['1'] }>
         <Menu.Item key="1"><Link to="/">Home</Link></Menu.Item>
         <Menu.Item key="2"><Link to="/books">Books</Link></Menu.Item>
