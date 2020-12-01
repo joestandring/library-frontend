@@ -22,6 +22,8 @@ class RequestView extends React.Component {
     }
     
     this.delete = this.delete.bind(this);
+    this.accept = this.accept.bind(this);
+    this.makeBookUnavailable = this.makeBookUnavailable.bind(this);
   }
 
   componentDidMount() {
@@ -91,9 +93,7 @@ class RequestView extends React.Component {
   delete() {
     const username = this.context.user.username;
     const password = this.context.user.password;
-    
-    console.log(this.state.request)
-    
+        
     fetch(ApiConf.host + '/requests/' + this.state.request.ID, {
       method: 'DELETE',
       headers: {
@@ -102,21 +102,108 @@ class RequestView extends React.Component {
     })
     .then(status)
     .then(json)
-    .then( data => {
+    .then(data => {
       message.success('Request deleted');
       this.props.history.push('/requests');
     })
-    .catch( err => {
+    .catch(err => {
       message.error('Request deletion failed');
       console.log(err);
     })
-  }  
+  }
+  
+  accept() {
+    const username = this.context.user.username;
+    const password = this.context.user.password;
+
+    fetch(ApiConf.host + '/requests/' + this.state.request.ID, {
+      method: 'PUT',
+      body: JSON.stringify({ 'accepted': 1 }),
+      headers: {
+        "Authorization": "Basic " + btoa(username + ":" + password),
+        "Content-Type": "application/json"
+      }
+    })
+    .then(status)
+    .then(json)
+    .then(data => {
+      message.success('Request accepted');
+      this.makeBookUnavailable();
+    })
+    .catch(err => {
+      message.error('Request accept failed');
+      console.log(err);
+    })
+  }
+  
+  makeBookUnavailable() {
+    const username = this.context.user.username;
+    const password = this.context.user.password;
+    
+    fetch(ApiConf.host + '/books/' + this.state.bookInfo.ID, {
+      method: 'PUT',
+      body: JSON.stringify({ 'available': 0 }),
+      headers: {
+        "Authorization": "Basic " + btoa(username + ":" + password),
+        "Content-Type": "application/json"
+      }
+    })
+    .then(status)
+    .then(json)
+    .then(data => {
+      message.success('Book marked unavailable');
+    })
+    .catch(err => {
+      console.error(err);
+    })
+  }
   
   render() {
     let accepted;
     if (this.state.request.accepted === 0) {
       accepted = (
-        <Paragraph strong>This request has yet to be accepted</Paragraph>
+        <Paragraph type="danger" strong>This request has yet to be accepted</Paragraph>
+      );
+    } else {
+      accepted = (
+        <Paragraph type="success" strong>This request has been accepted!</Paragraph>
+      )
+    }
+    
+    let button;
+    if (this.context.user.username === this.state.bookOwner.username) {
+      if (this.state.request.accepted === 0) {
+        button = (
+          <Popconfirm
+            title="Are you sure you want to accept this request?"
+            onConfirm={ this.accept }
+            okText="Yes, accept this request"
+            cancelText="Never mind"
+          >
+            <Button type="primary">
+              Accept request
+            </Button>
+          </Popconfirm>
+        );
+      } else {
+        button = (
+          <Button disabled>
+            Request accepted
+          </Button>
+        );
+      }
+    } else {
+      button = (
+        <Popconfirm
+          title="Are you sure you want to delete this request?"
+          onConfirm={ this.delete }
+          okText="Yes, delete this request"
+          cancelText="Never mind"
+        >
+          <Button danger>
+            Delete request
+          </Button>
+        </Popconfirm>
       );
     }
     
@@ -154,16 +241,7 @@ class RequestView extends React.Component {
         </div>
         <div style={ { textAlign: "center", margin: "10px" } }>
           { accepted }
-          <Popconfirm
-            title="Are you sure you want to delete this request?"
-            onConfirm={ this.delete }
-            okText="Yes, delete this request"
-            cancelText="Never mind"
-          >
-            <Button danger>
-              Delete request
-            </Button>
-          </Popconfirm>
+          { button }
         </div>
       </div>
     )

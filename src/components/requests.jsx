@@ -27,7 +27,8 @@ class Requests extends React.Component {
     this.state = {
       outgoing: [],
       books: [],
-      incoming: []
+      incoming: [],
+      incomingAccepted: [],
     }
     
     this.getUserBooks = this.getUserBooks.bind(this);
@@ -71,9 +72,10 @@ class Requests extends React.Component {
   getIncoming() {
     const username = this.context.user.username;
     const password = this.context.user.password
-    
-    console.log(this.state.books);
+        
     for (let i = 0; i < this.state.books.length; i += 1) {
+      console.log(this.state.books[i])
+      
       fetch(ApiConf.host + '/requests/book/' + this.state.books[i].ID, {
         headers: {
           "Authorization": "Basic " + btoa(username + ":" + password)
@@ -82,7 +84,11 @@ class Requests extends React.Component {
       .then(status)
       .then(json)
       .then(data => {
-        this.setState({ incoming: this.state.incoming.concat(data) });
+        if (this.state.books[i].available) {
+          this.setState({ incoming: this.state.incoming.concat(data) });
+        } else {
+          this.setState({ incomingAccepted: this.state.incomingAccepted.concat(data) });
+        }
       })
       .catch(err => console.error("No requests for book", err))
     }
@@ -113,20 +119,38 @@ class Requests extends React.Component {
       );
     });
     
+    /**
+     * Card containing a single incoming book requests that have been accepted
+     * @returns {string} JSX for the card
+     */
+    const incomingAccepted = this.state.incomingAccepted.map(request => {
+      return(
+        <RequestCard { ...request } />
+      );
+    });
+    
     return(
       <>
         <div style={ { padding: '2% 10%', textAlign: 'center' } }>
           <Title>Your book requests</Title>
-          <Title level={ 2 }>Not yet accepted</Title>
+          <Title level={ 2 }>Outgoing</Title>
           <div style={ { padding: "10px" } }>
             <Row type="flex" justify="space-around">
               { outgoing }
             </Row>
           </div>
-          <Title level={ 2 }>Incoming requests</Title>
+          <Title level={ 2 }>Incoming</Title>
+          <Title level={ 3 }>Unaccepted</Title>
           <div style={ { padding: "10px" } }>
             <Row type="flex" justify="space-around">
               { incoming }
+            </Row>
+          </div>
+          <Title level={ 2 }>Incoming requests</Title>
+          <Title level={ 3 }>Accepted</Title>
+          <div style={ { padding: "10px" } }>
+            <Row type="flex" justify="space-around">
+              { incomingAccepted }
             </Row>
           </div>
         </div>
