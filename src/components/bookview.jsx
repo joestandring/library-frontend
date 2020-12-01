@@ -9,7 +9,6 @@ import React from 'react';
 import { Image, Typography, Row, Col, Button, List, Space, Avatar, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import UserOutlined from '@ant-design/icons/UserOutlined';
 import ArrowLeftOutlined from '@ant-design/icons/ArrowLeftOutlined';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers'
@@ -125,7 +124,7 @@ class BookView extends React.Component {
               <Link to={ "/users/" + bookInfo.ownerID }>
                 <Button size="large" style={ { width: "100%" } }>
                   <Space>
-                    <Avatar size="small" icon={ <UserOutlined /> } />
+                    <Avatar size="small" src={ this.state.ownerInfo.avatar } />
                     { ownerInfo.username }
                   </Space>
                 </Button>
@@ -148,7 +147,7 @@ class BookView extends React.Component {
               <Link to={ "/users/" + bookInfo.ownerID }>
                 <Button size="large" style={ { width: "100%" } }>
                   <Space>
-                    <Avatar size="small" icon={ <UserOutlined /> } />
+                    <Avatar size="small" src={ this.state.ownerInfo.avatar } />
                     Me
                   </Space>
                 </Button>

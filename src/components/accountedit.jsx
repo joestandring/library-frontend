@@ -7,7 +7,6 @@
 
 import React from 'react';
 import { Popconfirm, Avatar, Typography, Form, Button, Spin, Input, message } from 'antd';
-import UserOutlined from '@ant-design/icons/UserOutlined';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers'
 import UserContext from '../contexts/user';
@@ -38,6 +37,11 @@ const postcodeRules = [
 
 const noWhitespace = [
   { whitespace: true },
+];
+
+const avatarRules = [
+  { type: 'url', message: 'Please input a valid URL' },
+  { whitespace: true}
 ];
 
 /**
@@ -154,15 +158,18 @@ class AccountEdit extends React.Component {
     }
     
     const accountInfo = this.state.accountInfo;
-    console.log(accountInfo);
-
+    console.log(accountInfo.avatar)
+    
     return(
       <>
         <div style={ { padding: '2% 10%', textAlign: 'center' } }>       
           <UserContext.Consumer>
             {({user}) => (
               <>
-                <Avatar size={ 128 } icon={ <UserOutlined /> } />
+                <Avatar
+                  size={ 128 }
+                  src={ accountInfo.avatar }
+                />
                 <Title level={ 4 }>{ user.username }</Title>
               </>
             )}
@@ -180,6 +187,14 @@ class AccountEdit extends React.Component {
               rules={ noWhitespace }
             >
               <Input placeholder={ accountInfo.username } />
+            </Form.Item>
+          
+            <Form.Item
+              label="Avatar"
+              name="avatar"
+              rules={ avatarRules }
+            >
+              <Input placeholder={ accountInfo.avatar } />
             </Form.Item>
 
             <Form.Item

@@ -4,7 +4,6 @@ import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers';
 import UserContext from '../contexts/user';
 import { withRouter } from 'react-router';
-import UserOutlined from '@ant-design/icons/UserOutlined';
 import { Link } from 'react-router-dom';
 
 const { Title, Paragraph } = Typography;
@@ -230,7 +229,7 @@ class RequestView extends React.Component {
             avatar={
               <Link to={ "/users/" + this.state.userInfo.ID }>
                 <Avatar
-                  icon=<UserOutlined />
+                  src={ this.state.userInfo.avatar }
                 />
               </Link>
             }

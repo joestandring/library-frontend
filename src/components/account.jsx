@@ -7,7 +7,6 @@
 
 import React from 'react';
 import { Avatar, Typography, List, Button, Spin } from 'antd';
-import UserOutlined from '@ant-design/icons/UserOutlined';
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers'
 import UserContext from '../contexts/user';
@@ -95,7 +94,7 @@ class Account extends React.Component {
           <UserContext.Consumer>
             {({user}) => (
               <>
-                <Avatar size={ 128 } icon={ <UserOutlined /> } />
+                <Avatar size={ 128 } src={ this.state.accountInfo.avatar } />
                 <Title level={ 4 }>{ user.username }</Title>
               </>
             )}

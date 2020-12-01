@@ -8,7 +8,6 @@
 
 import React from 'react';
 import { Avatar, Typography, Space } from 'antd';
-import UserOutlined from '@ant-design/icons/UserOutlined';
 import BookGridUser from './bookgriduser.jsx'
 import ApiConf from '../apiconf';
 import { status, json } from '../utilities/requestHandlers'
@@ -59,7 +58,7 @@ class User extends React.Component {
       <>
         <div style={ { padding: '2% 10%', textAlign: 'center' } }>
           <Space direction="vertical">
-            <Avatar size={ 128 } icon={ <UserOutlined /> } />
+            <Avatar size={ 128 } src={ userInfo.avatar } />
             <Title level={ 4 }>{ userInfo.username }</Title>
             <Title level={ 2 }>Owned books</Title>
             <BookGridUser />

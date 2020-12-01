@@ -8,27 +8,43 @@
  */
 
 import { Row, Col } from 'antd';
-
 import Nav from './nav';
 import UserArea from './userarea';
+import { useContext } from 'react';
+import UserContext from '../contexts/user';
 
 /**
  * Display contents of the header component
  * @returns {string} The HTML code to display elements
  */
 function HeaderContent(props) {
-  return(
-    <>
-      <Row>
-        <Col flex="auto">
-          <Nav />
-        </Col>
-        <Col>
-          <UserArea />          
-        </Col>
-      </Row>
-    </>
-  );
+  const context = useContext(UserContext);
+  const loggedIn = context.user.loggedIn;
+  
+  if (loggedIn) {
+    return(
+      <>
+        <Row>
+          <Col flex="auto">
+            <Nav />
+          </Col>
+          <Col>
+            <UserArea />          
+          </Col>
+        </Row>
+      </>
+    );
+  } else {
+    return(
+      <>
+        <Row>
+          <Col flex="auto">
+            <Nav />
+          </Col>
+        </Row>
+      </>
+    );
+  }
 }
 
 /** Export the component to be rendered in home.jsx */
