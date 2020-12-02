@@ -26,3 +26,9 @@ To run the database, you can use the ```start``` script to run the server with `
 $ npm start
 ```
 You can then access the app at http://localhost:3000/
+## Documentation
+To generate documentation using JSDoc, use:
+```
+$ npm run docs
+```
+Documentation will then be available in the ```docs/``` directory
