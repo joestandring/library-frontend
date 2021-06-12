@@ -2,7 +2,6 @@
 
 # Book Lending SPA Frontend
 An SPA frontend for a book lending service using React
-Uses [Book Lending API Backend](https://github.coventry.ac.uk/304CEM-2021SEPJAN/standringj-backend)
 This document contains information for installing, setting up, and configuring the frontend SPA. To generate documention for code, you can use JSDocs with ```npm run docs```
 ## Installing
 Clone the repository:
