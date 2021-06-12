@@ -1,3 +1,5 @@
+# This repo is a mirror of a project developed as part of my education at Coventry University. It is not intended to be used, simply to archive my work.
+
 # Book Lending SPA Frontend
 An SPA frontend for a book lending service using React
 Uses [Book Lending API Backend](https://github.coventry.ac.uk/304CEM-2021SEPJAN/standringj-backend)
